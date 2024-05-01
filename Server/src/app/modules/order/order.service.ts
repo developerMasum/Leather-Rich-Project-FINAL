@@ -188,7 +188,97 @@ const createOrderIntoDB = async (payload: TOrder): Promise<any> => {
       await product.save();
     }
 
+    // const orderUI = `
+
+    // <!DOCTYPE html>
+    // <html lang="en">
+    // <head>
+    //     <meta charset="UTF-8">
+    //     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    //     <title>Invoice</title>
+    // </head>
+    // <body style="background-color: #f3f4f6; padding: 20px; font-family: Arial, sans-serif;">
+    // <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    //     <div style="background-color: #a1a1a136;padding-left: 20px;  padding-right: 20px; padding-top: 30px; border-radius: 15px;">
+    //         <div style="text-align: center; margin-bottom: 20px;">
+    //             <div style="background-color: #f3f4f6; padding: 20px; margin-bottom: 10px;">
+    //               <img src="https://i.ibb.co/HqRBG9S/PNG-Richkid-Logo.png" alt="logo">
+    //             </div>
+    //               <h2 style="font-size: 24px; font-weight: bold; margin: 0;">Invoice</h2>
+    //               <p style="font-size: 14px; color: #7a7a7a; margin-top: 5px;">Order ID# 438904</p>
+    //           </div>
+
+    //           <div style="margin-bottom: 20px;">
+    //               <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Shipping Address</h3>
+    //               <p style="font-size: 14px; color: #333333; margin: 0;">${payload?.buyerName}</p>
+    //               <p style="font-size: 14px; color: #333333; margin: 0;">${payload?.address}</p>
+
+    //               <p style="font-size: 14px; color: #333333; margin: 0;">Phone: ${payload?.mobile}</p>
+    //               <p style="font-size: 14px; color: #333333; margin: 0;">Email: ${payload?.buyerEmail}</p>
+    //           </div>
+
+    //           <div style="margin-bottom: 20px;">
+    //               <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Order Summary</h3>
+    //               <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+    //                   <tbody>
+    //                       <tr>
+    //                           <td style="padding: 8px 0;">Payment Method:</td>
+    //                           <td style="padding: 8px 0;">Cash on Delivery</td>
+    //                       </tr>
+    //                       <tr>
+    //                           <td style="padding: 8px 0;">Shipping Method:</td>
+    //                           <td style="padding: 8px 0;">Home Delivery</td>
+    //                       </tr>
+    //                       <tr>
+    //                           <td style="padding: 8px 0;">Sub-Total:</td>
+    //                           <td style="padding: 8px 0;">${payload?.totalPrice} <span style="font-size: 8px;" > (+ included delivery charge ) </span></td>
+    //                       </tr>
+
+    //                       <tr>
+    //                           <td style="padding: 8px 0; border-top: 1px solid #e0e0e0; font-weight: bold;">Total:</td>
+    //                           <td style="padding: 8px 0; border-top: 1px solid #e0e0e0; font-weight: bold;">${payload?.totalPrice}</td>
+    //                       </tr>
+    //                   </tbody>
+    //               </table>
+    //           </div>
+
+    //     </div>
+    //         <div>
+    //             <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Products</h3>
+    //             <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
+    //                 <thead>
+    //                     <tr>
+    //                         <th style="padding: 8px 0; border-bottom: 1px solid #e0e0e0;">Product</th>
+    //                         <th style="padding: 8px 0; border-bottom: 1px solid #e0e0e0;">Quantity</th>
+    //                         <th style="padding: 8px 0; border-bottom: 1px solid #e0e0e0;">Total</th>
+    //                     </tr>
+    //                 </thead>
+    //                 <tbody>
+    //                     ${payload?.orderProduct
+    //                       .map(
+    //                         (product) => `
+    //                         <tr>
+    //                             <td style="padding: 8px 0;">${product.name}</td>
+    //                             <td style="padding: 8px 0;">${product.selectedQuantity}</td>
+    //                             <td style="padding: 8px 0;">${payload?.totalPrice}</td>
+    //                         </tr>
+    //                     `,
+    //                       )
+    //                       .join('')}
+    //                 </tbody>
+    //             </table>
+    //         </div>
+    //     </div>
+    // </body>
+    // </html>
+    // `;
+
     await session.commitTransaction();
+    // await sendEmail(
+    //   payload.buyerEmail,
+    //   'Your order at Richkid Shoes has been received!',
+    //   orderUI,
+    // );
 
     return result;
   } catch (error) {

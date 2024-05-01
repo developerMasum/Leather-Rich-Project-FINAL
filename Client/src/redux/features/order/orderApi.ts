@@ -1,6 +1,6 @@
 import { baseApi } from "../../api/baseApi";
 
- const orderApi = baseApi.injectEndpoints({
+const orderApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createOrder: builder.mutation({
       query: (orderInfo) => ({
@@ -27,12 +27,12 @@ import { baseApi } from "../../api/baseApi";
           body: orderData.data,
         };
       },
-      invalidatesTags:['order']
+      invalidatesTags: ["order"],
     }),
 
     getAllOrders: builder.query({
       query: () => ({
-        url: '/orders',
+        url: "/orders",
         method: "GET",
       }),
 
@@ -40,14 +40,12 @@ import { baseApi } from "../../api/baseApi";
     }),
     getAllSuccessfulOrders: builder.query({
       query: () => ({
-        url: '/orders/successful-orders',
+        url: "/orders/successful-orders",
         method: "GET",
       }),
 
       providesTags: ["order"],
     }),
-   
-
 
     getSingleOrder: builder.query({
       query: (id) => {
@@ -57,7 +55,7 @@ import { baseApi } from "../../api/baseApi";
           method: "GET",
         };
       },
-      providesTags:['order']
+      providesTags: ["order"],
     }),
     getSingleOrderByOrderNumber: builder.query({
       query: (id) => {
@@ -68,13 +66,33 @@ import { baseApi } from "../../api/baseApi";
         };
       },
     }),
-   
 
     deleteOrder: builder.mutation({
       query: (id) => ({
         url: `/orders/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["order"],
+    }),
+    getMyOrders: builder.query({
+      query: (email) => {
+        console.log("success", email);
+        return {
+          url: ` /orders/get-my-orders/${email}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["order"],
+    }),
+
+    updateOrderCancel: builder.mutation({
+      query: (id: string) => {
+        console.log("order", id);
+        return {
+          url: ` /orders/cancel-order/${id}`,
+          method: "PATCH",
+        };
+      },
       invalidatesTags: ["order"],
     }),
   }),
@@ -87,6 +105,8 @@ export const {
   useGetSingleOrderQuery,
   useCreatePaymentSSLMutation,
   useUpdateOrderDeliveryMutation,
- useGetSingleOrderByOrderNumberQuery,
- useGetAllSuccessfulOrdersQuery
+  useGetSingleOrderByOrderNumberQuery,
+  useGetAllSuccessfulOrdersQuery,
+  useGetMyOrdersQuery,
+  useUpdateOrderCancelMutation
 } = orderApi;
