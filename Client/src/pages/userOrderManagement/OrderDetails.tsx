@@ -17,6 +17,7 @@ const DetailRow = ({ title, value }:{title:string, value:string}) => {
 const OrderDetails = () => {
   const { id } = useParams();
   const { data } = useGetSingleOrderQuery(id);
+  console.log(id);
   const columns = [
     {
       title: 'Image',

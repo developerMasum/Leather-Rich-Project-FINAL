@@ -1,8 +1,6 @@
-import UserDashboard from "../components/Dashboard/UserDashboard";
+import UserDashboard from "../components/Dashboard/User/UserDashboard";
+import TrackOrders from "../pages/trackOrders/trackOrders";
 import ShowOrder from "../pages/userOrderManagement/ShowOrder";
-
-
-
 
 export const userPaths = [
   {
@@ -10,15 +8,15 @@ export const userPaths = [
     path: "dashboard",
     element: <UserDashboard />,
   },
+
   {
-    name: "Order Management",
-    children: [
-      {
-        name: "Show Orders",
-        path: "show-user-orders",
-        element: <ShowOrder />,
-      },
-    
-    ],
+    name: "Show Orders",
+    path: "show-user-orders",
+    element: <ShowOrder />,
+  },
+  {
+    name: "Track Order",
+    path: "track-orders",
+    element: <TrackOrders />,
   },
 ];
