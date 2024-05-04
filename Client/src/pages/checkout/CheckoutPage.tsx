@@ -117,6 +117,8 @@ const CheckoutPage = () => {
     discount: item.discount,
   }));
 
+  console.log(product)
+
   const orderNumber = generateOrder();
 
   const onFinish = async (values: FormValues) => {

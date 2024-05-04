@@ -24,6 +24,9 @@ const getAllUser = catchAsync(async (req, res) => {
   });
 });
 
+
+
+
 export const UserControllers = {
   createUser,getAllUser
 };

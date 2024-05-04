@@ -4,6 +4,7 @@ import express from 'express';
 import { UserControllers } from './user.controller';
 
 
+
 const router = express.Router();
 
 router.post(
@@ -15,6 +16,8 @@ router.post(
 );
 
 router.get('/', UserControllers.getAllUser)
+
+
 
 
 export const UserRoutes = router;
