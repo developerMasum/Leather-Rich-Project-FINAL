@@ -20,6 +20,26 @@ const getAllUser = async()=>{
   const result  =  await User.find()
   return result;
 }
+
+const getMe = async (userId: string, role: string) => {
+
+  let result = null;
+  if (role === 'user') {
+    result = await User.findOne({_id:userId});
+  }
+  // if (role === 'admin') {
+  //   result = await User.findOne({ id: userId });
+  // }
+
+  // if (role === 'superAdmin') {
+  //   result = await User.findOne({ id: userId });
+  // }
+
+  return result;
+};
+
 export const UserServices = {
-  createUserIntoDB,getAllUser
+  createUserIntoDB,
+  getAllUser,
+  getMe,
 };

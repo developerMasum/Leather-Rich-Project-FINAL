@@ -81,10 +81,26 @@ const successfulDelivery: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const getMyOrders = catchAsync(async (req, res) => {
+  const { email } = req.params;
+
+  const result = await orderServices.getMyOrders(email);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'My orders fatched succesfully!!!',
+    data: result,
+  });
+});
+
 
 export const orderController = {
-getAllOrders,getSingleOrder,createOrder,
-updateOrder,
-getSingleOrderByOrderNumber,
-successfulDelivery
+  getAllOrders,
+  getSingleOrder,
+  createOrder,
+  updateOrder,
+  getSingleOrderByOrderNumber,
+  successfulDelivery,
+  getMyOrders,
 };

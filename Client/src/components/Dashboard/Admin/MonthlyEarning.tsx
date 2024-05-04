@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from 'react';
 import { BarChart, Bar, Tooltip } from 'recharts';
@@ -73,33 +74,8 @@ export default function MonthlyEarning() {
       }))
     : [];
   
-  // console.log(yearData);
+  console.log(yearData);
   
-
-
-
-
-// const getIntroOfPage = (label) => {
-//   if (yearData.name === 'April') {
-//     return "Page A is about men's clothing";
-//   }
-//   if (label === 'Page B') {
-//     return "Page B is about women's dress";
-//   }
-//   if (label === 'Page C') {
-//     return "Page C is about women's bag";
-//   }
-//   if (label === 'Page D') {
-//     return 'Page D is about household goods';
-//   }
-//   if (label === 'Page E') {
-//     return 'Page E is about food';
-//   }
-//   if (label === 'Page F') {
-//     return 'Page F is about baby food';
-//   }
-//   return '';
-// };
 
 const CustomTooltip = ({  payload }:{payload:TDataItem[]}) => {
   
@@ -116,7 +92,9 @@ const CustomTooltip = ({  payload }:{payload:TDataItem[]}) => {
   return null;
 };
 
-
+  const currentMonthData = yearData.find(
+    (data:any) => data.name === getMonthName(new Date().getMonth() + 1)
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -127,7 +105,7 @@ const CustomTooltip = ({  payload }:{payload:TDataItem[]}) => {
       setChartDimensions({ width: newWidth, height: newHeight });
     };
 
-    handleResize(); // Initial resize
+    handleResize(); 
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -135,17 +113,23 @@ const CustomTooltip = ({  payload }:{payload:TDataItem[]}) => {
 
   return (
     <>
-      <div id="bar-chart-container" className="rounded-2xl px-8 py-5 bg-[#03C9D7]">
+      <div
+        id="bar-chart-container"
+        className="rounded-2xl px-8 py-5 bg-[#03C9D7]"
+      >
         <div className="flex justify-between items-center gap-6">
           <p className="font-semibold text-white text-lg">Earnings</p>
           <p className="text-xl font-sans text-white font-semibold mt-8">
-            <span>৳</span>{yearData[0]?.uv}
+            <span>৳</span> {currentMonthData ? currentMonthData.uv : 0}
             <br />
             <span className="text-gray-200 text-sm">Monthly revenue</span>
           </p>
         </div>
-        <BarChart width={chartDimensions.width} 
-         height={chartDimensions.height} data={yearData}>
+        <BarChart
+          width={chartDimensions.width}
+          height={chartDimensions.height}
+          data={yearData}
+        >
           <Bar dataKey="uv" fill="#8884d8" />
           <Tooltip content={<CustomTooltip />} />
         </BarChart>

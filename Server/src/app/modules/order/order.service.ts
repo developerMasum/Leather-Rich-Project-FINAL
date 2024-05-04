@@ -401,11 +401,22 @@ const getSuccessfulDelivery = async () => {
   return result;
 };
 
+const getMyOrders = async (email: string) => {
+  // console.log({ email });
+  const result = await Order.find({
+    buyerEmail: email,
+    deliveryStatus: { $ne: 'cancel' },
+  });
+  // console.log(result)
+  return result;
+};
+
 export const orderServices = {
   getAllOrdersFromDB,
   getSingleOrderFromDB,
   createOrderIntoDB,
   updateOrderIntoDB,
   getSingleOrderByOrderNumberFromDB,
-  getSuccessfulDelivery
+  getSuccessfulDelivery,
+  getMyOrders,
 };

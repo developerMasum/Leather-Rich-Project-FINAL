@@ -25,7 +25,7 @@ router.patch('/update-delivery/:id', orderController.updateOrder);
 
 router.post('/create-checkout-session')
 router.get('/get-single-order/:id', orderController.getSingleOrder);
-
+router.get('/get-my-orders/:email', orderController.getMyOrders);
 // router.delete('/product/:productId', ProductController.deleteProduct);
 
 export const orderRoute = router;
