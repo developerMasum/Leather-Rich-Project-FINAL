@@ -59,8 +59,8 @@ const Login = () => {
   };
 
   return (
-   <main className="mt-12 md:lg:mt-60">
-     <div className=" mt-24 px-4 sm:px-2 w-full flex flex-col sm:flex-row justify-around gap-5 items-center">
+   <main className="mt-12 md:lg:mt-20">
+     <div className=" px-4 sm:px-2 w-full flex flex-col sm:flex-row justify-around gap-5 items-center">
       <motion.div 
        variants={parent}
        initial="hidden"
@@ -111,7 +111,15 @@ const Login = () => {
           transition={{ ease: "easeInOut", duration: 1, delay: 1 }}
           className=" max-w-[1300px] md:lg:max-w-[500px] w-full px-4 py-6 md:lg:w-1/2 rounded-lg "
         >
-          <img className="mx-auto" src={logo} alt="logo" />
+          <motion.div
+          whileHover={{ x: 10 }}
+          transition={{ type: "spring", stiffness: 200, damping: 20 }}
+          className="flex items-center justify-center"
+        >
+          
+          <img src={logo} alt="trendy" className="h-[50px] w-[100px] mt-2 object-fill mr-4 rounded" />
+       
+        </motion.div>
           <h2 className="text-2xl font-bold mb-4 text-center text-primary">
             Login TrendyLeather
           </h2>

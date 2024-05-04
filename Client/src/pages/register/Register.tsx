@@ -51,8 +51,16 @@ const Register = () => {
       <motion.div  variants={parent}
       initial="hidden"
       animate="visible"
-      transition={{ ease: "easeInOut", duration: 1,delay:1 }} className="max-w-[500px] p-4 rounded-lg  border-[3px] shadow-2xl border-neutral-100 ">
-           <img className="mx-auto" src={logo} alt="logo"/>
+      transition={{ ease: "easeInOut", duration: 1,delay:1 }} className="max-w-[500px] p-4 rounded-lg  border-[3px] shadow border-neutral-100 ">
+          <motion.div
+          whileHover={{ x: 10 }}
+          transition={{ type: "spring", stiffness: 200, damping: 20 }}
+          className="flex items-center justify-center"
+        >
+          
+          <img src={logo} alt="trendy" className="h-[50px] w-[100px] mt-2 object-fill mr-4 rounded" />
+       
+        </motion.div>
         <h2 className="text-2xl font-bold mb-4 text-center text-textprimary">Register Now</h2>
         <Form
           name="register"
