@@ -33,7 +33,7 @@ const Login = () => {
         email: values.email,
         password: values.password,
       };
-   
+
       login(userInfo);
       const res = await login(userInfo).unwrap();
       const user = verifyToken(res.data.accessToken) as TUser;
@@ -155,7 +155,9 @@ const Login = () => {
               >
                 <Input.Password placeholder="Enter your password" />
               </Form.Item>
-
+              <Link to="/forget-password">
+                <p className="text-end underline py-1">Forget Password?</p>
+              </Link>
               <Form.Item>
                 <Button
                   className="btn"

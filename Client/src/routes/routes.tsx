@@ -19,6 +19,8 @@ import { userPaths } from "./user.route";
 import Success from "../pages/bkashPayment/Success";
 import Error from "../pages/bkashPayment/Error";
 import Register from "../pages/register/Register";
+import ForgotPasswordPage from "../pages/forgotPassword/ForgotPassword";
+import ResetPassword from "../pages/resetPassword/ResetPassword";
 
 
 const router = createBrowserRouter([
@@ -58,6 +60,14 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path:'forget-password',
+        element:<ForgotPasswordPage/>
+      },
+      {
+        path:'reset-password',
+        element:<ResetPassword/>
       },
       {
         path: "register",
