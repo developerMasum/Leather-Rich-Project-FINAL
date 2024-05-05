@@ -2,8 +2,8 @@
 import express from 'express';
 
 import { UserControllers } from './user.controller';
-
-
+import { USER_ROLE } from './user.constant';
+import auth from '../../middlewares/auth';
 
 const router = express.Router();
 
@@ -15,9 +15,12 @@ router.post(
   UserControllers.createUser,
 );
 
-router.get('/', UserControllers.getAllUser)
+router.get('/', auth(USER_ROLE.superAdmin), UserControllers.getAllUser);
 
-
-
+router.get(
+  '/me',
+  auth(USER_ROLE.superAdmin, USER_ROLE.user),
+  UserControllers.getMe,
+);
 
 export const UserRoutes = router;

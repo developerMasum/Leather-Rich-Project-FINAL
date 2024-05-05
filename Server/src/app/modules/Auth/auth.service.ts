@@ -9,12 +9,8 @@ import { User } from '../User/user.model';
 
 const loginUser = async (payload: TLoginUser) => {
   // checking if the user is exist
-  
 
-  console.log(payload)
   const user = await User.isUserExistsByEmail(payload.email);
- 
-
 
   if (!user) {
     throw new AppError(
@@ -24,12 +20,11 @@ const loginUser = async (payload: TLoginUser) => {
   }
   // checking if the user is already deleted
 
-    //checking if the password is correct
+  //checking if the password is correct
 
-    if (!(await User.isPasswordMatched(payload?.password, user?.password)))
+  if (!(await User.isPasswordMatched(payload?.password, user?.password)))
     throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched');
 
-    
   const isDeleted = user?.isDeleted;
 
   if (isDeleted) {
@@ -37,9 +32,10 @@ const loginUser = async (payload: TLoginUser) => {
   }
 
   const jwtPayload = {
-    email: user.email,
-    role: user.role as string
-    
+    name: user?.name,
+    email: user?.email,
+
+    role: user.role as string,
   };
 
   const accessToken = createToken(
@@ -84,8 +80,9 @@ const refreshToken = async (token: string) => {
   }
 
   const jwtPayload = {
+    name: user?.name,
     email: user?.email,
-    role: user?.role as string
+    role: user?.role as string,
   };
 
   const accessToken = createToken(

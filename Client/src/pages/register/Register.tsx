@@ -15,12 +15,12 @@ const Register = () => {
   const navigate = useNavigate();
 
   const onFinish = async (values: {
-    userName: string;
+    name: string;
     email: string;
     password: string;
   }) => {
     const userInfo = {
-      userName: values.userName,
+      name: values.name,
       email: values.email,
       password: values.password,
       role: "user",
@@ -70,7 +70,7 @@ const Register = () => {
         >
           <Form.Item
             label="Your Name"
-            name="userName"
+            name="name"
             rules={[
               { required: true, message: "Please input your userName" },
               { type: "string", message: "Please enter a valid email address" },

@@ -49,7 +49,7 @@ async function server() {
     await mongoose.connect(config.database_url as string);
     seedSuperAdmin()
     app.listen(config.port, () => {
-      console.log(`Lather Rich app listening on port ${config.port}`);
+      console.log(`TrendyLeather app listening on port ${config.port}`);
     });
   } catch (error) {
     console.log(error);

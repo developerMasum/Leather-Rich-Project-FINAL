@@ -60,14 +60,15 @@ const Reviews = ({ product }: { product: TProduct }) => {
     >
       <div className="max-w-[800px]">
         <div className="flex justify-end items-center">
-          <Button onClick={toggleForm}>Add Review</Button>
+          <Button className="bg-primary" onClick={toggleForm}>Add Review</Button>
         </div>
         {showForm && (
-          <Form
+       
+           <Form
             form={form}
             onFinish={onFinish}
             layout="vertical"
-            className="mt-0 bg-neutral-100 shadow-md space-y-0"
+            className="mt-0 p-4  shadow-md space-y-0"
           >
             <Form.Item
               label="Name"
@@ -93,11 +94,12 @@ const Reviews = ({ product }: { product: TProduct }) => {
               <Input.TextArea placeholder="Write your's reviews......" />
             </Form.Item>
             <Form.Item>
-              <Button loading={isLoading} htmlType="submit">
+              <Button  className="my-8 bg-primary text-end" loading={isLoading} htmlType="submit">
                 Submit Review
               </Button>
             </Form.Item>
           </Form>
+        
         )}
 
         {/* <div>
