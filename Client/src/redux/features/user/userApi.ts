@@ -25,6 +25,14 @@ const userApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getMe: builder.query({
+      query: () => {
+        return {
+          url: "/users/me",
+          method: "GET",
+        };
+      },
+    }),
 
     updateUser: builder.mutation({
       query: (options) => ({
@@ -49,4 +57,5 @@ export const {
  useGetAllUserQuery,
   useUpdateUserMutation,
   useDeleteUserMutation,
+  useGetMeQuery
 } = userApi;

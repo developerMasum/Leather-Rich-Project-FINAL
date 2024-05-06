@@ -7,6 +7,7 @@ import { User } from './user.model';
 import AppError from '../../errors/AppError';
 
 const createUserIntoDB = async (payload: TUser) => {
+  // console.log({payload})
   const isExistUser = await User.findOne({ email: payload.email });
 
   if (isExistUser) {
@@ -21,25 +22,26 @@ const getAllUser = async()=>{
   return result;
 }
 
-const getMe = async (userId: string, role: string) => {
 
-  let result = null;
-  if (role === 'user') {
-    result = await User.findOne({_id:userId});
-  }
+
+const getMe = async (user:TUser) => {
+
+const result = await User.findOne({email:user?.email, role:user?.role})
+  // let result = null;
+  // if (role === 'student') {
+  //   result = await Student.findOne({ id: userId }).populate('user');
+  // }
   // if (role === 'admin') {
-  //   result = await User.findOne({ id: userId });
+  //   result = await Admin.findOne({ id: userId }).populate('user');
   // }
 
-  // if (role === 'superAdmin') {
-  //   result = await User.findOne({ id: userId });
+  // if (role === 'faculty') {
+  //   result = await Faculty.findOne({ id: userId }).populate('user');
   // }
 
   return result;
 };
 
 export const UserServices = {
-  createUserIntoDB,
-  getAllUser,
-  getMe,
+  createUserIntoDB,getAllUser,getMe
 };

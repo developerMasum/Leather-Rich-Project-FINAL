@@ -16,7 +16,7 @@ const ShowOrder = () => {
     isLoading,
     isFetching,
   } = useGetMyOrdersQuery(user?.email);
-  console.log(user?.email)
+  console.log(orders)
 
   const [cancelOrder]=useUpdateOrderCancelMutation();
 
