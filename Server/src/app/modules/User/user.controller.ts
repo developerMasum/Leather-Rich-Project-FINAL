@@ -40,6 +40,25 @@ const getMe = catchAsync(async (req, res) => {
 
 
 
+
+const getUserDashboardData = catchAsync(async (req, res) => {
+  const { email } = req.params;
+
+  const result = await UserServices.getUserDashboardData(email);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Dashboard Data fetched successfully!!!',
+    data: result,
+  });
+});
+
+
+
 export const UserControllers = {
-  createUser,getAllUser,getMe
+  createUser,
+  getAllUser,
+  getMe,
+  getUserDashboardData,
 };

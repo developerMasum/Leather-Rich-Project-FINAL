@@ -5,6 +5,8 @@ import httpStatus from 'http-status';
 import { TUser } from './user.interface';
 import { User } from './user.model';
 import AppError from '../../errors/AppError';
+import { Order } from '../order/order.model';
+import { DashboardData } from './user.constant';
 
 const createUserIntoDB = async (payload: TUser) => {
   // console.log({payload})
@@ -23,10 +25,9 @@ const getAllUser = async()=>{
 }
 
 
-
-const getMe = async (user:TUser) => {
-
-const result = await User.findOne({email:user?.email, role:user?.role})
+const getMe = async (user: TUser) => {
+  // console.log(user)
+  const result = await User.findOne({ email: user?.email, role: user?.role });
   // let result = null;
   // if (role === 'student') {
   //   result = await Student.findOne({ id: userId }).populate('user');
@@ -42,6 +43,58 @@ const result = await User.findOne({email:user?.email, role:user?.role})
   return result;
 };
 
+
+
+
+
+
+const getUserDashboardData = async (email: string): Promise<DashboardData> => {
+  const orders = await Order.find({ buyerEmail: email });
+
+  let totalShoppingAmount = 0;
+  let totalProductsBought = 0;
+  let totalProductsCancelled = 0;
+  let totalRewardsPoints = 0;
+
+ 
+  orders.forEach((order) => {
+    if (order.deliveryStatus === 'delivered') {
+      totalShoppingAmount += order.totalPrice;
+      totalProductsBought += order.orderProduct.reduce(
+        (acc, product) => acc + product.selectedQuantity,
+        0,
+      );
+      totalRewardsPoints += order.orderProduct.reduce(
+        (acc, product) => acc + product.selectedQuantity + 10,
+        0,
+      );
+    } else if (order.deliveryStatus === 'cancel') {
+      totalProductsCancelled += order.orderProduct.reduce(
+        (acc, product) => acc + product.selectedQuantity,
+        0,
+      );
+    }
+  });
+
+  return {
+    totalShoppingAmount,
+    totalProductsBought,
+    totalProductsCancelled,
+    totalRewardsPoints,
+  };
+};
+
+
+
+
+
+
+
+
+
 export const UserServices = {
-  createUserIntoDB,getAllUser,getMe
+  createUserIntoDB,
+  getAllUser,
+  getMe,
+  getUserDashboardData,
 };

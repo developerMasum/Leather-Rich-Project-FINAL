@@ -402,12 +402,21 @@ const getSuccessfulDelivery = async () => {
 };
 
 const getMyOrders = async (email: string) => {
-  // console.log({ email });
-  const result = await Order.find({
-    buyerEmail: email,
-    deliveryStatus: { $ne: 'cancel' },
+  const result = await Order.find({ buyerEmail: email }).sort({
+    updatedAt: -1,
   });
-  // console.log(result)
+  return result;
+};;
+
+const cancelOrder = async (id: string) => {
+  const result = await Order.findOneAndUpdate(
+    { _id: id }, // Use _id instead of id for MongoDB's unique identifier
+    {
+      deliveryStatus: 'cancel', // Assuming deliveryStatus is the field to be updated
+    },
+    { new: true },
+  );
+
   return result;
 };
 
@@ -419,4 +428,5 @@ export const orderServices = {
   getSingleOrderByOrderNumberFromDB,
   getSuccessfulDelivery,
   getMyOrders,
+  cancelOrder,
 };

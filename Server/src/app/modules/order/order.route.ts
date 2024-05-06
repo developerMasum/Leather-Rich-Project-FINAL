@@ -13,7 +13,9 @@ router.post(
   auth(USER_ROLE.superAdmin, USER_ROLE.user),
   orderController.createOrder,
 );
-router.get('/', auth(USER_ROLE.superAdmin), orderController.getAllOrders);
+router.get('/',
+ auth(USER_ROLE.superAdmin), 
+ orderController.getAllOrders);
 router.get('/successful-orders', orderController.successfulDelivery);
 router.patch(
   '/update-delivery/:id',
@@ -29,5 +31,6 @@ router.get(
 );
 
 // router.delete('/product/:productId', ProductController.deleteProduct);
-
+router.get('/get-my-orders/:email', orderController.getMyOrders);
+router.patch('/cancel-order/:id', orderController.cancelOrder);
 export const orderRoute = router;

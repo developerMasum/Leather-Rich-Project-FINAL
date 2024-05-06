@@ -22,5 +22,10 @@ router.get(
   auth(USER_ROLE.superAdmin, USER_ROLE.user),
   UserControllers.getMe,
 );
+router.get(
+  '/user-dashboard-data/:email',
+  // auth(USER_ROLE.user),
+  UserControllers.getUserDashboardData,
+);
 
 export const UserRoutes = router;

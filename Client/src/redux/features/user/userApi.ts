@@ -49,6 +49,16 @@ const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
+    getUserDashboardData: builder.query({
+      query: (email) => {
+        console.log("success", email);
+        return {
+          url: `/users/user-dashboard-data/${email}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["user"],
+    }),
   }),
 });
 
@@ -57,5 +67,5 @@ export const {
  useGetAllUserQuery,
   useUpdateUserMutation,
   useDeleteUserMutation,
-  useGetMeQuery
+  useGetMeQuery,useGetUserDashboardDataQuery
 } = userApi;
