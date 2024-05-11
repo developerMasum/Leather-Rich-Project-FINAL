@@ -19,67 +19,19 @@ import { IoBagAddOutline } from "react-icons/io5";
 import { MdDashboard } from "react-icons/md";
 
 const ShoppingCart = () => {
-  // const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
-  // const cart = useAppSelector((state) => state.cart);
-  // const [dropdownOpen, setDropdownOpen] = useState(false);
-  // const user = useAppSelector(useCurrentUser);
-  // const dispatch = useAppDispatch();
-
-  // const selectQuantity = cart?.cartItems?.map((item: any) => ({
-  //   quantity: item.cartQuantity,
-  // }));
-
-  
-  // const availabeleQuantity=cart?.cartItems?.map(item=>(
-  //   function getStockBySize(item, item.size) {
-  //     const sizeStock = product?.sizeStok?.find((item) => item.size === size);
-  //     return sizeStock ? sizeStock.stock : 0; // Return stock if found, otherwise 0
-  //   }
-
-  // ))
-
-
-
-
-  // useEffect(() => {
-  //   dispatch(getTotals());
-  // }, [cart]);
-  // console.log(dropdownOpen);
-
-  // const handleLogout = () => {
-  //   dispatch(logout());
-  //   setDropdownOpen(false);
-  // };
-
-  // const handleDecreaseCart = (product: any) => {
-   
-  //   dispatch(decreaseCart(product));
-  // };
-  // const handleIncreaseCart = (product: any) => {
-   
-  //   dispatch(addToCart(product));
-  // };
-  // const handleRemoveFromCart = (product: any) => {
-   
-  //   dispatch(removeFromCart(product));
-  // };
-  // const handleClearCart = () => {
-  //   dispatch(clearCart());
-  // };
-
-
-
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
   const cart = useAppSelector((state) => state.cart);
+  console.log(cart)
+  
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const user = useAppSelector(useCurrentUser);
   const dispatch = useAppDispatch();
 
-
-
   // Function to get available quantity for a product size
   const getAvailableQuantity = (item: any) => {
-    const sizeStock = item?.sizeStok?.find((sizeItem: any) => sizeItem.size === item.size);
+    const sizeStock = item?.sizeStok?.find(
+      (sizeItem: any) => sizeItem.size === item.size
+    );
     return sizeStock ? sizeStock.stock : 0;
   };
 
@@ -114,6 +66,7 @@ const ShoppingCart = () => {
     dispatch(clearCart());
   };
 
+ 
 
   return (
     <div>
@@ -122,7 +75,6 @@ const ShoppingCart = () => {
         <div>
           {user && (
             <Link to={`/${user?.role}/dashboard`}>
-             
               <MdDashboard className="text-xl text-primary" />
             </Link>
           )}
@@ -291,7 +243,16 @@ const ShoppingCart = () => {
                             strong
                             className="text-gray-500 text-sm"
                           >
-                            ৳{cartItem?.price * cartItem.cartQuantity}
+
+
+
+৳
+                {Math.round(
+                  cartItem?.price -
+                    (cartItem?.price * cartItem?.discount) / 100
+                )  * cartItem.cartQuantity}
+
+                            {/* ৳{cartItem?.price * cartItem.cartQuantity} */}
                           </Typography.Text>
                         </Col>
                       </Row>

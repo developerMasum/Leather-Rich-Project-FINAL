@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, Divider, Form, Input, Table, Radio } from "antd";
+import { Button, Divider, Form, Input, Table, Radio, Typography } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Link, useNavigate } from "react-router-dom";
-import {  clearCart, removeFromCart } from "../../redux/features/cart/cartSlice";
+import { clearCart, removeFromCart } from "../../redux/features/cart/cartSlice";
 import { useState } from "react";
 
 import { IoPlaySkipBackOutline } from "react-icons/io5";
@@ -24,6 +24,7 @@ interface FormValues {
 const CheckoutPage = () => {
   const [createOrder, { isLoading }] = useCreateOrderMutation();
   const cart = useAppSelector((state) => state.cart);
+  console.log(cart.cartTotalAmount);
   const [shippingCost, setShippingCost] = useState(0);
 
   const user = useAppSelector(useCurrentUser);
@@ -41,7 +42,6 @@ const CheckoutPage = () => {
     setShippingCost(event.target.value);
   };
 
- 
   const columns = [
     {
       title: "Image",
@@ -60,6 +60,20 @@ const CheckoutPage = () => {
       title: "Price",
       dataIndex: "price",
       key: "price",
+      render: (text: string) => `৳${text}`,
+    },
+
+    {
+      title: "Discount",
+      dataIndex: "discount",
+      key: "discount",
+      render: (text: number) => (
+        <Typography
+          style={{ color: text <= 0 ? "green" : "red", fontWeight: "bold" }}
+        >
+          {text}%
+        </Typography>
+      ),
     },
     {
       title: "Size",
@@ -70,6 +84,7 @@ const CheckoutPage = () => {
       title: "Total Price",
       dataIndex: "totalPrice",
       key: "totalPrice",
+      render: (text: string) => `৳${text}`,
     },
     {
       title: "Update",
@@ -95,14 +110,20 @@ const CheckoutPage = () => {
     },
   ];
 
-
   const data = cart?.cartItems?.map((item: any) => ({
     key: item.id,
     image: item.images[0],
     quantity: item.cartQuantity,
-    price: item.price,
+    price: item.discount
+      ? Math.round(item.price - (item.price * item.discount) / 100)
+      : item.price,
+    discount: item.discount,
     size: item.size,
-    totalPrice: item.price * item.cartQuantity,
+    totalPrice:
+      item.discount === 0
+        ? item.price * item.cartQuantity
+        : Math.round(item.price - (item.price * item.discount) / 100) *
+          item.cartQuantity,
     id: item._id,
     product: item,
   }));
@@ -111,13 +132,15 @@ const CheckoutPage = () => {
     productId: item._id,
     selectedQuantity: item.cartQuantity,
     image: item.images[0],
-    price: item.price,
+    price: item.discount
+      ? Math.round(item.price - (item.price * item.discount) / 100)
+      : item.price,
     name: item.name,
     size: item.size,
     discount: item.discount,
   }));
 
-  console.log(product)
+  console.log(product);
 
   const orderNumber = generateOrder();
 
@@ -144,9 +167,9 @@ const CheckoutPage = () => {
 
     try {
       const res = await createOrder(orderData).unwrap();
-     if(res?.data){
-      dispatch(clearCart())
-     }
+      if (res?.data) {
+        dispatch(clearCart());
+      }
       if ("error" in res) {
         // toast.error(res?.error?.data?.message);
       } else {
@@ -191,7 +214,10 @@ const CheckoutPage = () => {
                   >
                     <p className="text-gray-500">{`${item.name} x ${item.cartQuantity}`}</p>
                     <p className="font-bold">
-                      {item.price * item.cartQuantity}৳
+                      {Math.round(
+                        item?.price - (item.price * item?.discount) / 100
+                      ) * item?.cartQuantity}
+                      ৳{/* {item.price * item.cartQuantity}৳ */}
                     </p>
                   </div>
                 ))}

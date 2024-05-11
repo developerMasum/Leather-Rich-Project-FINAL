@@ -16,7 +16,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
 
-      console.log(action.payload);
+  
       const existingIndex = state.cartItems.findIndex(
         (item: any) => item._id === action.payload._id
       );
@@ -112,15 +112,53 @@ const cartSlice = createSlice({
       });
     },
 
+    // getTotals: (state) => {
+    //   const { total, quantity } = state.cartItems.reduce(
+    //     (cartTotal: any, cartItem: any) => {
+
+
+    //       {Math.round(
+    //         cartItem?.price -
+    //           (cartItem?.price * cartItem?.discount) / 100
+    //       )  * cartItem.cartQuantity}
+
+
+    //       const { price, cartQuantity,discount } = cartItem;
+
+          
+
+    //       const itemTotal =( price- (price.discount/100) )* cartQuantity;
+    //       // const itemTotal = price * cartQuantity;
+
+    //       cartTotal.total += itemTotal;
+    //       cartTotal.quantity += cartQuantity;
+
+    //       return cartTotal;
+    //     },
+    //     {
+    //       total: 0,
+    //       quantity: 0,
+    //     }
+    //   );
+
+    //   state.cartTotalQuantity = quantity;
+    //   state.cartTotalAmount = total;
+    // },
+
+
     getTotals: (state) => {
       const { total, quantity } = state.cartItems.reduce(
         (cartTotal: any, cartItem: any) => {
-          const { price, cartQuantity } = cartItem;
-          const itemTotal = price * cartQuantity;
-
+          const { price, cartQuantity, discount } = cartItem;
+    
+          // Calculate the item total
+          const discountedPrice = Math.round(price - (price * discount) / 100);
+          const itemTotal = discountedPrice * cartQuantity;
+    
+          // Update the total and quantity
           cartTotal.total += itemTotal;
           cartTotal.quantity += cartQuantity;
-
+    
           return cartTotal;
         },
         {
@@ -128,10 +166,11 @@ const cartSlice = createSlice({
           quantity: 0,
         }
       );
-
+    
       state.cartTotalQuantity = quantity;
       state.cartTotalAmount = total;
     },
+    
     clearCart: (state) => {
       state.cartItems = [];
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));

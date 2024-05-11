@@ -48,5 +48,15 @@
   background: none;
   opacity: 0.25;
 }
- 
+
+
+.card {
+  background-image: url('./../../assets/images//lightFrame.png');
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat;
+
+}
+
+
   
