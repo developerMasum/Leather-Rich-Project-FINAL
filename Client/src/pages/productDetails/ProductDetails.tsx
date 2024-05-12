@@ -58,7 +58,7 @@ const ProductDetails = () => {
     <div className="container mx-auto p-2 md:lg:p-20">
       <Spin spinning={isLoading}>
         <div className="md:flex md:justify-center md:items-center md:gap-2 space-x-5 rounded">
-          <div className="md:max-w-[40%] bg-white  pl-24 md:lg:pl:0 md:lg:p:0 ">
+          <div className="md:max-w-[40%] bg-white  pl-20 md:lg:pl:0 md:lg:p:0 ">
             <div className="w-[80%]">
               <ImageSlide images={images} />
             </div>
