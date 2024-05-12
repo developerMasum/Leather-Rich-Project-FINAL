@@ -56,9 +56,11 @@ const getUserDashboardData = catchAsync(async (req, res) => {
 
 
 
+
 export const UserControllers = {
   createUser,
   getAllUser,
   getMe,
   getUserDashboardData,
+
 };

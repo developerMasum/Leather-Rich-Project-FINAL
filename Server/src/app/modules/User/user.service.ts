@@ -76,11 +76,17 @@ const getUserDashboardData = async (email: string): Promise<DashboardData> => {
     }
   });
 
+
+
+
+
+
   return {
     totalShoppingAmount,
     totalProductsBought,
     totalProductsCancelled,
     totalRewardsPoints,
+
   };
 };
 

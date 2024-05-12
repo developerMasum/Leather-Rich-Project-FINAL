@@ -20,7 +20,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const { data: product, isLoading } = useGetSingleProductForDetailsQuery(id);
   // console.log({id})
-
+  console.log(isSizeSelected);
   const images = product?.data[0]?.images;
   const avgRating = product?.data[0]?.averageRating;
   const ProductReviewData = product?.data[0];
@@ -42,8 +42,8 @@ const ProductDetails = () => {
     setIsSizeSelected(true);
   };
 
-  function getStockBySize(product, size) {
-    const sizeStock = product?.sizeStok?.find((item) => item.size === size);
+  function getStockBySize(product: { sizeStok: any[]; }, size: null) {
+    const sizeStock = product?.sizeStok?.find((item: { size: any; }) => item.size === size);
     return sizeStock ? sizeStock.stock : 0; // Return stock if found, otherwise 0
   }
 

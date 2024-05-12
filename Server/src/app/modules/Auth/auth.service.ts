@@ -101,7 +101,7 @@ const refreshToken = async (token: string) => {
 const forgetPassword = async (email: string) => {
   // checking if the user is exist
   const user = await User.isUserExistsByEmail(email);
-  console.log(user, 'user');
+  // console.log(user, 'user');
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
@@ -116,8 +116,9 @@ const forgetPassword = async (email: string) => {
   // checking if the user is blocked
 
   const jwtPayload = {
-    userId: user._id,
+    userId: user._id ,
     role: user.role,
+    email:user.email
   };
 
   const resetToken = createToken(
@@ -126,7 +127,7 @@ const forgetPassword = async (email: string) => {
     '30m',
   );
 
-  const resetLink = `${config.reset_pass_ui_link}?id=${user.id}&token=${resetToken} `;
+  const resetLink = `${config.reset_pass_ui_link}?id=${user?.id}&token=${resetToken} `;
 
   const resetUILink = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -645,7 +646,7 @@ const forgetPassword = async (email: string) => {
 
   sendEmailForPasswordChange(user.email, resetUILink);
 
-  console.log(resetUILink);
+  // console.log(resetUILink);
 };
 
 const resetPassword = async (
@@ -653,7 +654,7 @@ const resetPassword = async (
   
 ) => {
 
-console.log({payload})
+// console.log({payload})
   const user = await User.findById(payload?.id);
 
   if (!user) {

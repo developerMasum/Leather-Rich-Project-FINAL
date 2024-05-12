@@ -1,4 +1,5 @@
-import { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Table } from 'antd';
 import type { TableProps } from 'antd';
 import { useGetAllProductsQuery } from '../../../redux/features/product/productApi';
@@ -19,7 +20,7 @@ const BestSellingProductList: React.FC = () => {
     { name: "sort", value: "-sellsQuantity" },
   ]);
   const productInfo: TProduct[] | undefined = productsData?.data;
-  console.log(productInfo);
+  // console.log(productInfo);
 
   const columns: TableProps<ProductInfo>[ 'columns' ] = [
     {
@@ -50,7 +51,7 @@ const BestSellingProductList: React.FC = () => {
     },
   ];
 
-  const data: [] | undefined = productInfo || [];
+  const data: any[] | undefined = productInfo || [];
 
   return (
     <div className=' ps-10 mt-12 bg-white rounded-2xl px-3 py-2 mx-5'>

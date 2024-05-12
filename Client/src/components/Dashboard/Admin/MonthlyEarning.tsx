@@ -131,7 +131,7 @@ const CustomTooltip = ({  payload }:{payload:TDataItem[]}) => {
           data={yearData}
         >
           <Bar dataKey="uv" fill="#8884d8" />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip content={<CustomTooltip payload={[]} />} />
         </BarChart>
       </div>
     </>

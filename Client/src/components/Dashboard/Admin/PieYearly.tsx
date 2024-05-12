@@ -101,7 +101,7 @@ const PieYearlyEarnings = () => {
           fill="#8884d8"
           dataKey="value"
         >
-          {data.map((entry:any, index:any) => (
+          {data.map((_entry:any, index:any) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>

@@ -23,8 +23,10 @@ const UserCards = () => {
         >
           <div className="flex justify-between items-center">
             <div>
-              <p className="font-bold text-gray-600">Total Purchase</p>
-              <p className="text-2xl">
+              <p className="font-semibold text-gray-600  uppercase">
+                Total Purchase
+              </p>
+              <p className="text-3xl mt-2 text-stone-800">
                 ৳ {dashboardData?.data?.totalShoppingAmount}
               </p>
             </div>
@@ -46,7 +48,7 @@ const UserCards = () => {
               </svg>
             </button>
           </div>
-          <div className="mt-6 text-sm">
+          <div className="mt-3 text-sm">
             <Link to={"/user/show-user-orders"}>
               <button
                 type="button"
@@ -92,7 +94,7 @@ const UserCards = () => {
             </svg>
           </button>
           <p className="mt-3">
-            <span className="text-lg font-semibold">
+            <span className=" font-semibold text-3xl mt-2 text-stone-800">
               {dashboardData?.data?.totalProductsBought}
             </span>
             <span className="text-sm ps-2 text-green-600">items</span>
@@ -105,7 +107,8 @@ const UserCards = () => {
         <div
           style={{
             backgroundColor: "#85FFBD",
-            backgroundImage: "linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%)",
+            backgroundImage:
+              "linear-gradient(45deg, #85FFBD 40%, #FFFB7D 100%)",
           }}
           className=" h-44 dark:text-gray-200 dark:bg-secondary-dark-bg md:w-full p-4 pt-9 rounded-2xl"
         >
@@ -134,7 +137,7 @@ const UserCards = () => {
             </svg>
           </button>
           <p className="mt-3">
-            <span className="text-lg font-semibold">
+            <span className="text-3xl font-semibold  mt-2 text-stone-800">
               {dashboardData?.data?.totalRewardsPoints}
             </span>
             <span className="text-sm text-green-600 ml-2">+10</span>
@@ -144,7 +147,6 @@ const UserCards = () => {
 
         <div
           style={{
-          
             backgroundImage:
               "linear-gradient(135deg, #FF9D6C 10%, #BB4E75 100%)",
           }}
@@ -176,7 +178,7 @@ const UserCards = () => {
             </svg>
           </button>
           <p className="mt-3">
-            <span className="text-lg font-semibold">
+            <span className="text-3xl mt-2 text-stone-800 font-semibold">
               {dashboardData?.data?.totalProductsCancelled}
             </span>
           </p>

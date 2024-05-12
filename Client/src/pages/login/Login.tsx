@@ -43,7 +43,7 @@ const Login = () => {
       if (user.role === "user") {
         navigate(from, { replace: true });
       } else {
-        navigate("/");
+        navigate("/superAdmin/dashboard");
       }
     } catch (error) {
       toast.error((error as any)?.data?.message || "An error occurred");
@@ -55,6 +55,7 @@ const Login = () => {
     visible: { opacity: 1, scale: 1 },
   };
 
+  
   return (
     <main className="mt-12 md:lg:mt-20">
       <div className=" px-4 sm:px-2 w-full flex flex-col sm:flex-row justify-around gap-5 items-center">
