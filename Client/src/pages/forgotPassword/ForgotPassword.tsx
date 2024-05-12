@@ -17,15 +17,16 @@ const ForgotPasswordPage = () => {
     };
 
     try {
-      const res:any = await forgetPassword(userInfo);
+      const res:any= await forgetPassword(userInfo);
       console.log(res)
 
-      if ("data" in res && res?.data?.message) {
+      if ('data' in res && res?.data?.message) {
         setSuccessMessage(res?.data?.message);
         setErrorMessage('')
       }else{
-      setErrorMessage("error" in res && res?.error?.data?.message);
 
+             
+        setErrorMessage( res?.error?.data?.message)
       }
     } catch (err: any) {
       console.log(err.message);

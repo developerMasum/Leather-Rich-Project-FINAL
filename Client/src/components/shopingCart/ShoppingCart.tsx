@@ -19,18 +19,19 @@ import { IoBagAddOutline } from "react-icons/io5";
 import { MdDashboard } from "react-icons/md";
 
 const ShoppingCart = () => {
-  
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
   const cart = useAppSelector((state) => state.cart);
+  console.log(cart)
+  
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const user = useAppSelector(useCurrentUser);
   const dispatch = useAppDispatch();
 
-
-
   // Function to get available quantity for a product size
   const getAvailableQuantity = (item: any) => {
-    const sizeStock = item?.sizeStok?.find((sizeItem: any) => sizeItem.size === item.size);
+    const sizeStock = item?.sizeStok?.find(
+      (sizeItem: any) => sizeItem.size === item.size
+    );
     return sizeStock ? sizeStock.stock : 0;
   };
 
@@ -65,6 +66,7 @@ const ShoppingCart = () => {
     dispatch(clearCart());
   };
 
+ 
 
   return (
     <div>
@@ -73,7 +75,6 @@ const ShoppingCart = () => {
         <div>
           {user && (
             <Link to={`/${user?.role}/dashboard`}>
-             
               <MdDashboard className="text-xl text-primary" />
             </Link>
           )}
@@ -242,7 +243,16 @@ const ShoppingCart = () => {
                             strong
                             className="text-gray-500 text-sm"
                           >
-                            ৳{cartItem?.price * cartItem.cartQuantity}
+
+
+
+৳
+                {Math.round(
+                  cartItem?.price -
+                    (cartItem?.price * cartItem?.discount) / 100
+                )  * cartItem.cartQuantity}
+
+                            {/* ৳{cartItem?.price * cartItem.cartQuantity} */}
                           </Typography.Text>
                         </Col>
                       </Row>
