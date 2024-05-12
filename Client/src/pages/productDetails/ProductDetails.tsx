@@ -55,16 +55,16 @@ const ProductDetails = () => {
   const availableQuantity = getStockBySize(products, selectedOption);
 
   return (
-    <div className="container mx-auto p-20">
+    <div className="container mx-auto p-2 md:lg:p-20">
       <Spin spinning={isLoading}>
         <div className="md:flex md:justify-center md:items-center md:gap-2 space-x-5 rounded">
-          <div className="md:max-w-[40%] bg-white p-0">
+          <div className="md:max-w-[40%] bg-white  pl-24 md:lg:pl:0 md:lg:p:0 ">
             <div className="w-[80%]">
               <ImageSlide images={images} />
             </div>
           </div>
 
-          <div className="md:max-w-[60%] border border-neutral-[1px] rounded-sm">
+          <div className="max-w-[90%] md:max-w-[60%] border border-neutral-[1px] rounded-sm">
             <div className="py-5 flex justify-evenly items-center bg-neutral-100">
               <h4 className="text-lg text-balance md:text-xl text-center font-semibold text-textprimary capitalize mb-0">
                 {product?.data[0]?.name}
