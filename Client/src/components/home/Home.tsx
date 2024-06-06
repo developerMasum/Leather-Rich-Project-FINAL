@@ -8,7 +8,7 @@ import SubBanner from "../subBanner/SubBanner";
 
 
 import { motion } from "framer-motion";
-import CookieBanner from "../cookieBanner/CookieBanner";
+
 import NewBestSellingProducts from "../bestSellingProduct/NewBestSelling";
 
 const Home = () => {
@@ -29,7 +29,7 @@ const Home = () => {
 
       <MenProduct />
 
-      <CookieBanner />
+   
 
       <WomenProduct />
       <KidProducts />

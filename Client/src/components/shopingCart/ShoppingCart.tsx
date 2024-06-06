@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { LeftOutlined, UserOutlined } from "@ant-design/icons";
-import { Badge, Button, Card, Col, Drawer, Row, Typography } from "antd";
+import { Badge, Button,Col, Drawer, Row, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
@@ -22,7 +22,7 @@ const ShoppingCart = () => {
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
   const cart = useAppSelector((state) => state.cart);
   console.log(cart)
-  
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const user = useAppSelector(useCurrentUser);
   const dispatch = useAppDispatch();
@@ -66,7 +66,7 @@ const ShoppingCart = () => {
     dispatch(clearCart());
   };
 
- 
+
 
   return (
     <div>
@@ -125,10 +125,10 @@ const ShoppingCart = () => {
           setCartDrawerOpen(false);
         }}
         title="Your Cart"
-        contentWrapperStyle={{ width: 600 }}
+        contentWrapperStyle={{ width:600, margin:'0px 0px'  }}
       >
         <div
-          style={{ maxWidth: "1000px", margin: "auto", padding: "10px 0px" }}
+          style={{ maxWidth: "1000px", margin: "0ox", padding: "0px 0px" }}
         >
           {cart.cartItems.length === 0 ? (
             <NoDataFoundPage />
@@ -139,51 +139,54 @@ const ShoppingCart = () => {
                 align="middle"
                 className="text-gray-600"
               >
-                <Col span={6}>
-                  <Typography.Text strong className="text-gray-600 text-sm">
-                    PRODUCT
+                <Col span={4}>
+                  <Typography.Text strong className="text-gray-600 text- text-xs md:text-sm">
+                    Product
                   </Typography.Text>
                 </Col>
                 <Col span={4}>
-                  <Typography.Text strong className="text-gray-600 text-sm">
-                    PRICE
+                  <Typography.Text strong className="text-gray-600 text- text-xs md:text-sm">
+                    Price
                   </Typography.Text>
                 </Col>
                 <Col span={4}>
-                  <Typography.Text strong className="text-gray-600 text-sm">
-                    SIZE
-                  </Typography.Text>
-                </Col>
-                <Col span={6}>
-                  <Typography.Text strong className="text-gray-600 text-sm">
-                    QUANTITY
+                  <Typography.Text strong className="text-gray-600 text- text-xs md:text-sm">
+                    Size
                   </Typography.Text>
                 </Col>
                 <Col span={4}>
-                  <Typography.Text strong className="text-gray-600 text-sm">
-                    TOTAL
+                  <Typography.Text strong className="text-gray-600 text- text-xs md:text-sm">
+                    Quantity
                   </Typography.Text>
                 </Col>
+                <Col span={4}>
+                  <Typography.Text strong className="text-gray-600 text- text-xs md:text-sm">
+                    Total
+                  </Typography.Text>
+                </Col>
+                <Col span={4}>
+                  <Typography.Text strong className="text-gray-600 text- text-xs md:text-sm">
+                    Action
+                  </Typography.Text>
+                </Col>
+              
               </Row>
+              
 
-              <Row gutter={[4, 4]}>
-                <Col span={24} className="space-y-2">
+              <Row  
+                >
+                <Col span={24} >
                   {cart?.cartItems?.map((cartItem: any) => (
-                    <Card
+                    <div
                       key={cartItem.image}
                       style={{ height: "10" }}
-                      className="border"
+                      className="border p-2 rounded-sm"
                     >
-                      <Row justify="space-between" align="stretch">
-                        <Col span={6}>
-                          <div className="flex justify-center items-center gap-1">
-                            <img
-                              src={cartItem?.images[0]}
-                              alt={cartItem?.productName}
-                              width={30}
-                              height={30}
-                              loading="lazy"
-                            />
+                      <Row justify="space-between"
+                align="middle">
+                        <Col span={4}>
+                        
+                           
 
                             <Typography.Text
                               strong
@@ -193,15 +196,9 @@ const ShoppingCart = () => {
                                 ? cartItem?.name.substring(0, 10) + "..."
                                 : cartItem.name}
                             </Typography.Text>
-                          </div>
+                  
 
-                          <Button
-                            type="link"
-                            onClick={() => handleRemoveFromCart(cartItem)}
-                          >
-                            {" "}
-                            Remove
-                          </Button>
+                      
                         </Col>
                         <Col span={4}>
                           <Typography.Text
@@ -219,10 +216,10 @@ const ShoppingCart = () => {
                             size {cartItem?.size}
                           </Typography.Text>
                         </Col>
-                        <Col span={6}>
-                          <div className="flex items-center justify-center gap-4">
+                        <Col span={4}>
+                          <div className="flex items-center justify-center gap-1 md:gap-2">
                             <button
-                              className="bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold px-3 py-1 rounded-md focus:outline-none"
+                              className="bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold px-2 py-1 rounded-md focus:outline-none"
                               onClick={() => handleDecreaseCart(cartItem)}
                             >
                               -
@@ -231,7 +228,7 @@ const ShoppingCart = () => {
                               {cartItem.cartQuantity}
                             </span>
                             <button
-                              className="bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold px-3 py-1 rounded-md focus:outline-none"
+                              className="bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold px-2 py-1 rounded-md focus:outline-none"
                               onClick={() => handleIncreaseCart(cartItem)}
                             >
                               +
@@ -246,17 +243,26 @@ const ShoppingCart = () => {
 
 
 
-৳
-                {Math.round(
-                  cartItem?.price -
-                    (cartItem?.price * cartItem?.discount) / 100
-                )  * cartItem.cartQuantity}
+                            ৳
+                            {Math.round(
+                              cartItem?.price -
+                              (cartItem?.price * cartItem?.discount) / 100
+                            ) * cartItem.cartQuantity}
 
                             {/* ৳{cartItem?.price * cartItem.cartQuantity} */}
                           </Typography.Text>
                         </Col>
+                        <Col span={4}>
+                        <Button
+                            type="link"
+                            onClick={() => handleRemoveFromCart(cartItem)}
+                          >
+                            {" "}
+                            Remove
+                          </Button>
+                        </Col>
                       </Row>
-                    </Card>
+                    </div>
                   ))}
                 </Col>
               </Row>
