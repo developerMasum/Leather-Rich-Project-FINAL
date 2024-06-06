@@ -2,14 +2,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 
-// const initialState = {
-//   cartItems: localStorage.getItem("cartItems")
-//     ? JSON.parse(localStorage.getItem("cartItems"))
-//     : [],
-//   cartTotalQuantity: 0,
-//   cartTotalAmount: 0,
-// };
-
 const initialState = {
   cartItems: localStorage.getItem("cartItems")
     ? JSON.parse(localStorage.getItem("cartItems") as string)
@@ -18,12 +10,13 @@ const initialState = {
   cartTotalAmount: 0,
 };
 
-
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
     addToCart: (state, action) => {
+
+  
       const existingIndex = state.cartItems.findIndex(
         (item: any) => item._id === action.payload._id
       );
@@ -32,7 +25,6 @@ const cartSlice = createSlice({
         state.cartItems[existingIndex] = {
           ...state.cartItems[existingIndex],
           cartQuantity: state.cartItems[existingIndex].cartQuantity + 1,
-          
         };
         toast.info("Increased product quantity", {
           position: "bottom-left",
@@ -46,43 +38,9 @@ const cartSlice = createSlice({
       }
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
-
+  
    
-    //   const productId = action.payload;
-    //   try {
-    //     const exist = state.cartItems.find(
-    //       (product) =>
-    //         product.id === productId.id &&
-    //         product.size === productId.size &&
-    //         product.color === productId.color
-    //     );
-    //     if (exist) {
-    //       exist.amount++;
-    //       exist.totalPrice += productId.price;
-    //       state.totalAmount++;
-    //       state.totalPrice += productId.price;
-    //     } else {
-    //       state.cart.push({
-    //         id: productId.id,
-    //         price: productId.price,
-    //         size: productId.size,
-    //         amount: 1,
-    //         img: productId.img,
-    //         totalPrice: productId.price,
-    //         name: productId.name,
-    //         text: productId.text,
-    //         color: productId.color,
-    //       });
-    //       state.totalAmount++;
-    //       state.totalPrice += productId.price;
-    //     }
-    //   } catch (err) {
-    //     return err;
-    //   }
-    // },
-
-
-
+    
 
     decreaseCart(state, action) {
       const itemIndex = state.cartItems.findIndex(
@@ -109,6 +67,7 @@ const cartSlice = createSlice({
 
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+
     decreaseCartBYshop(state, action) {
       const itemIndex = state.cartItems.findIndex(
         (item: any) => item._id === action.payload._id
@@ -152,20 +111,54 @@ const cartSlice = createSlice({
         return state;
       });
     },
-   
-    
-    
-    
+
+    // getTotals: (state) => {
+    //   const { total, quantity } = state.cartItems.reduce(
+    //     (cartTotal: any, cartItem: any) => {
+
+
+    //       {Math.round(
+    //         cartItem?.price -
+    //           (cartItem?.price * cartItem?.discount) / 100
+    //       )  * cartItem.cartQuantity}
+
+
+    //       const { price, cartQuantity,discount } = cartItem;
+
+          
+
+    //       const itemTotal =( price- (price.discount/100) )* cartQuantity;
+    //       // const itemTotal = price * cartQuantity;
+
+    //       cartTotal.total += itemTotal;
+    //       cartTotal.quantity += cartQuantity;
+
+    //       return cartTotal;
+    //     },
+    //     {
+    //       total: 0,
+    //       quantity: 0,
+    //     }
+    //   );
+
+    //   state.cartTotalQuantity = quantity;
+    //   state.cartTotalAmount = total;
+    // },
+
 
     getTotals: (state) => {
       const { total, quantity } = state.cartItems.reduce(
         (cartTotal: any, cartItem: any) => {
-          const { price, cartQuantity } = cartItem;
-          const itemTotal = price * cartQuantity;
-
+          const { price, cartQuantity, discount } = cartItem;
+    
+          // Calculate the item total
+          const discountedPrice = Math.round(price - (price * discount) / 100);
+          const itemTotal = discountedPrice * cartQuantity;
+    
+          // Update the total and quantity
           cartTotal.total += itemTotal;
           cartTotal.quantity += cartQuantity;
-
+    
           return cartTotal;
         },
         {
@@ -173,10 +166,11 @@ const cartSlice = createSlice({
           quantity: 0,
         }
       );
-
+    
       state.cartTotalQuantity = quantity;
       state.cartTotalAmount = total;
     },
+    
     clearCart: (state) => {
       state.cartItems = [];
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));

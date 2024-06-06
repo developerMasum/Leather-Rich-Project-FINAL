@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Form, Input } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { toast } from "sonner";
 
@@ -9,18 +9,27 @@ import { useCreateUserMutation } from "../../redux/features/user/userApi";
 
 import { motion } from "framer-motion";
 import logo from '../../assets/images/PNG-Richkid-Logo.png'
+import { useLoginMutation } from "../../redux/features/auth/authApi";
+import { verifyToken } from "../../utils/verifiToken";
+import { useAppDispatch } from "../../redux/hooks";
+import { setUser } from "../../redux/features/auth/authSlice";
 
 const Register = () => {
   const [register, { isLoading }] = useCreateUserMutation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const [login] = useLoginMutation();
+
+  const location = useLocation();
+  const from = location.state?.from.pathname || "/";
 
   const onFinish = async (values: {
-    userName: string;
+    name: string;
     email: string;
     password: string;
   }) => {
     const userInfo = {
-      userName: values.userName,
+      name: values.name,
       email: values.email,
       password: values.password,
       role: "user",
@@ -32,7 +41,20 @@ const Register = () => {
       if (res?.error) {
         toast.error(res?.error?.data?.message);
       } else {
-        navigate("/login");
+        // navigate("/login");
+
+        const res = await login({email:values?.email, password:values?.password}).unwrap();
+        const user = verifyToken(res.data.accessToken) as TUser;
+        dispatch(setUser({ user: user, token: res.data.accessToken }));
+     
+
+        if (user.role === "user") {
+          navigate(from, { replace: true });
+        } else {
+          navigate("/");
+        }
+
+
         toast.success("user  created successfully");
       }
     } catch (err) {
@@ -51,8 +73,16 @@ const Register = () => {
       <motion.div  variants={parent}
       initial="hidden"
       animate="visible"
-      transition={{ ease: "easeInOut", duration: 1,delay:1 }} className="max-w-[500px] p-4 rounded-lg  border-[3px] shadow-2xl border-neutral-100 ">
-           <img className="mx-auto" src={logo} alt="logo"/>
+      transition={{ ease: "easeInOut", duration: 1,delay:1 }} className="max-w-[500px] p-4 rounded-lg  border-[3px] shadow border-neutral-100 ">
+          <motion.div
+          whileHover={{ x: 10 }}
+          transition={{ type: "spring", stiffness: 200, damping: 20 }}
+          className="flex items-center justify-center"
+        >
+          
+          <img src={logo} alt="trendy" className="h-[50px] w-[100px] mt-2 object-fill mr-4 rounded" />
+       
+        </motion.div>
         <h2 className="text-2xl font-bold mb-4 text-center text-textprimary">Register Now</h2>
         <Form
           name="register"
@@ -62,7 +92,7 @@ const Register = () => {
         >
           <Form.Item
             label="Your Name"
-            name="userName"
+            name="name"
             rules={[
               { required: true, message: "Please input your userName" },
               { type: "string", message: "Please enter a valid email address" },

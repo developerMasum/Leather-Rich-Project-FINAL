@@ -19,7 +19,7 @@ const SubscribeInput = () => {
           top: 0, 
           right: 0, 
           height: '100%', 
-          background: '#7D3F98', // Change button color to red
+          background: 'red', // Change button color to red
           border: 'none' // Remove button border if needed
         }}
       />
