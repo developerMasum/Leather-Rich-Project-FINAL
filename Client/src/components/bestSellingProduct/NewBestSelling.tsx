@@ -1,5 +1,6 @@
-import { Card, Spin, Badge } from "antd";
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Card, Spin, Badge, Modal } from "antd";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -9,27 +10,47 @@ import { useState } from "react";
 import { useGetAllProductsQuery } from "../../redux/features/product/productApi";
 import { TQueryParam } from "../../types/global.type";
 import "./NewBestSelling.css";
-import { motion } from "framer-motion";
 import bgCard from "./../../assets/images/Light bg frame.png";
-
 import { Link } from "react-router-dom";
 import Meta from "antd/es/card/Meta";
-import ButtonPrimary from "../button/ButtonPrimary";
-import { PlusOutlined } from "@ant-design/icons";
+import { TProduct } from "../../types/product.type";
 
 const NewBestSellingProducts = () => {
   const [params, setParams] = useState<TQueryParam[]>([]);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const { data: productsData, isLoading } = useGetAllProductsQuery([
     { name: "sort", value: "-price" },
     ...params,
   ]);
 
-  console.log(setParams);
+  const openModal = (product:any) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const handleMouseEnter = (index: number) => {
+    setHoveredCard(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredCard(null);
+  };
+
+  const handleClickToView = (product: TProduct) => {
+    openModal(product);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
+  };
+
   return (
     <div className="md:container mx-auto ">
       <div className="flex align-center  gap-5 items-center">
         <h2 className="mt-20 border-black border-l-2 border-t-2 h-10 w-full"></h2>
-
         <h2 className="pt-10 flex justify-center items-center text-divider w-[780px]  md:lg:w-[580px] font-semibold md:text-[15px] text-[12px]">
           BEST SELLING'S PRODUCTS
         </h2>
@@ -72,33 +93,26 @@ const NewBestSellingProducts = () => {
                 color="#F50600"
               >
                 <div
-                  className=" bg-cover bg-center bg-no-repeat"
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onMouseLeave={handleMouseLeave}
+                  className="relative bg-cover bg-center bg-no-repeat"
                   style={{ backgroundImage: `url(${bgCard})` }}
                 >
                   <Card
                     key={product?._id}
-                    className=" w-[300px] h-[380px]"
+                    className="w-[300px] h-[380px]"
                     cover={
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.5 }}
-                        whileHover={{ scale: 1.1 }}
-                        className="rounded-t-md cursor-pointer  shadow-2xl overflow-hidden"
-                        style={{ width: "300px", height: "200px" }}
-                      >
-                        <img
-                          alt="example"
-                          src={product?.images[0]}
-                          loading="lazy"
-                          className="w-full h-full object-cover rounded-t-md"
-                        />
-                      </motion.div>
+                      <img
+                        alt="example"
+                        src={product?.images[0]}
+                        loading="lazy"
+                        className="w-full h-full object-cover rounded-t-md"
+                      />
                     }
                   >
                     <Meta
                       title={
-                        <h4 className="text-blace capitalize text-textprimary text-center">
+                        <h4 className="text-black capitalize text-textprimary text-center">
                           {product.name}
                         </h4>
                       }
@@ -121,7 +135,7 @@ const NewBestSellingProducts = () => {
 
                     <div className="my-5">
                       {product.discount === 0 ? (
-                        <p className="text-secondry text-[18px] font-semibold">
+                        <p className="text-secondary text-[18px] font-semibold">
                           Price: {product.price}৳
                         </p>
                       ) : (
@@ -131,7 +145,7 @@ const NewBestSellingProducts = () => {
                           </h5>
 
                           {product?.discount && (
-                            <h5 className="text-secondry text-[18px] font-semibold">
+                            <h5 className="text-secondary text-[18px] font-semibold">
                               {product?.price -
                                 (product?.price * product?.discount) / 100}
                               ৳
@@ -140,14 +154,27 @@ const NewBestSellingProducts = () => {
                         </div>
                       )}
                     </div>
-                    <div>
-                      <Link to={`/product/${product._id}`}>
-                        <ButtonPrimary
-                          icon={<PlusOutlined />}
-                          title={"order"}
-                        />
-                      </Link>
-                    </div>
+
+                    {hoveredCard === index && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 bg-black">
+                        <button
+                          className="text-white bg-black text-xs hover:bg-gray-700 hover:text-white font-bold py-2 px-4 rounded-md transition duration-500 transform hover:scale-110"
+                          onClick={() => handleClickToView(product)}
+                        >
+                          Click to view
+                        </button>
+                      </div>
+                    )}
+                    {hoveredCard === index && (
+                      <div className="absolute bottom-1 left-5 right-5 flex items-center justify-center bg-opacity-50 ">
+                        <Link
+                          to={`/product/${product._id}`}
+                          className="text-white bg-red-600 text-xs hover:bg-gray-700 hover:text-white font-bold py-3 px-8 w-full rounded-md transition duration-500 transform hover:scale-110"
+                        >
+                          <button>Buy Now</button>
+                        </Link>
+                      </div>
+                    )}
                   </Card>
                 </div>
               </Badge.Ribbon>
@@ -155,6 +182,24 @@ const NewBestSellingProducts = () => {
           ))}
         </Swiper>
       </Spin>
+
+      <Modal
+        title="Product Details"
+        visible={isModalOpen}
+        onCancel={closeModal}
+        footer={null}
+      >
+        {selectedProduct && (
+          <>
+            <div>
+              <img src={selectedProduct?.images[0]} alt="" />
+            </div>
+            <p className="text-red-700">{selectedProduct.name}</p>
+            <p>{selectedProduct.description}</p>
+            <p>Price: {selectedProduct.price}৳</p>
+          </>
+        )}
+      </Modal>
 
       <h2 className="mb-20 border-black w-full h-10 border-l-2 border-b-2 border-r-2"></h2>
     </div>
