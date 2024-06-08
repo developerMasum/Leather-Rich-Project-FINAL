@@ -17,6 +17,7 @@ import NoDataFoundPage from "../../pages/noDataFoundPage/NoDataFoundPage";
 import { logout, useCurrentUser } from "../../redux/features/auth/authSlice";
 import { IoBagAddOutline } from "react-icons/io5";
 import { MdDashboard } from "react-icons/md";
+import { IoClose } from "react-icons/io5";
 
 const ShoppingCart = () => {
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
@@ -125,11 +126,9 @@ const ShoppingCart = () => {
           setCartDrawerOpen(false);
         }}
         title="Your Cart"
-        contentWrapperStyle={{ width:600, margin:'0px 0px'  }}
+        contentWrapperStyle={{ width: 600, margin: "0px 0px" }}
       >
-        <div
-          style={{ maxWidth: "1000px", margin: "0ox", padding: "0px 0px" }}
-        >
+        <div style={{ maxWidth: "1000px", margin: "0ox", padding: "0px 0px" }}>
           {cart.cartItems.length === 0 ? (
             <NoDataFoundPage />
           ) : (
@@ -140,70 +139,78 @@ const ShoppingCart = () => {
                 className="text-gray-600"
               >
                 <Col span={4}>
-                  <Typography.Text strong className="text-gray-600 text- text-xs md:text-sm">
+                  <Typography.Text
+                    strong
+                    className="text-gray-600 text- text-xs md:text-sm"
+                  >
                     Product
                   </Typography.Text>
                 </Col>
                 <Col span={4}>
-                  <Typography.Text strong className="text-gray-600 text- text-xs md:text-sm">
+                  <Typography.Text
+                    strong
+                    className="text-gray-600 text- text-xs md:text-sm"
+                  >
                     Price
                   </Typography.Text>
                 </Col>
                 <Col span={4}>
-                  <Typography.Text strong className="text-gray-600 text- text-xs md:text-sm">
+                  <Typography.Text
+                    strong
+                    className="text-gray-600 text- text-xs md:text-sm"
+                  >
                     Size
                   </Typography.Text>
                 </Col>
                 <Col span={4}>
-                  <Typography.Text strong className="text-gray-600 text- text-xs md:text-sm">
+                  <Typography.Text
+                    strong
+                    className="text-gray-600 text- text-xs md:text-sm"
+                  >
                     Quantity
                   </Typography.Text>
                 </Col>
                 <Col span={4}>
-                  <Typography.Text strong className="text-gray-600 text- text-xs md:text-sm">
+                  <Typography.Text
+                    strong
+                    className="text-gray-600 text- text-xs md:text-sm"
+                  >
                     Total
                   </Typography.Text>
                 </Col>
                 <Col span={4}>
-                  <Typography.Text strong className="text-gray-600 text- text-xs md:text-sm">
+                  <Typography.Text
+                    strong
+                    className="text-gray-600 text- text-xs md:text-sm"
+                  >
                     Action
                   </Typography.Text>
                 </Col>
-              
               </Row>
-              
 
-              <Row  
-                >
-                <Col span={24} >
+              <Row>
+                <Col span={24}>
                   {cart?.cartItems?.map((cartItem: any) => (
                     <div
                       key={cartItem.image}
                       style={{ height: "10" }}
                       className="border p-2 rounded-sm"
                     >
-                      <Row justify="space-between"
-                align="middle">
+                      <Row justify="space-between" align="middle">
                         <Col span={4}>
-                        
-                           
-
-                            <Typography.Text
-                              strong
-                              className="text-gray-500 text-sm overflow-hidden"
-                            >
-                              {cartItem?.name.length > 10
-                                ? cartItem?.name.substring(0, 10) + "..."
-                                : cartItem.name}
-                            </Typography.Text>
-                  
-
-                      
+                          <Typography.Text
+                            strong
+                            className="text-gray-500 text-xs overflow-hidden"
+                          >
+                            {cartItem?.name.length > 10
+                              ? cartItem?.name.substring(0, 10) + "..."
+                              : cartItem.name}
+                          </Typography.Text>
                         </Col>
                         <Col span={4}>
                           <Typography.Text
                             strong
-                            className="text-gray-500 text-sm"
+                            className="text-gray-500 text-xs"
                           >
                             ৳{cartItem?.price}
                           </Typography.Text>
@@ -211,7 +218,7 @@ const ShoppingCart = () => {
                         <Col span={4}>
                           <Typography.Text
                             strong
-                            className="text-gray-500 text-sm"
+                            className="text-gray-500 text-xs"
                           >
                             size {cartItem?.size}
                           </Typography.Text>
@@ -219,7 +226,7 @@ const ShoppingCart = () => {
                         <Col span={4}>
                           <div className="flex items-center justify-center gap-1 md:gap-2">
                             <button
-                              className="bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold px-2 py-1 rounded-md focus:outline-none"
+                              className="bg-gray-200 text-xs hover:bg-gray-300 text-gray-600 font-semibold px-2 py-1 rounded-md focus:outline-none"
                               onClick={() => handleDecreaseCart(cartItem)}
                             >
                               -
@@ -228,7 +235,7 @@ const ShoppingCart = () => {
                               {cartItem.cartQuantity}
                             </span>
                             <button
-                              className="bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold px-2 py-1 rounded-md focus:outline-none"
+                              className="bg-gray-200 hover:bg-gray-300 text-xs text-gray-600 font-semibold px-2 py-1 rounded-md focus:outline-none"
                               onClick={() => handleIncreaseCart(cartItem)}
                             >
                               +
@@ -238,27 +245,22 @@ const ShoppingCart = () => {
                         <Col span={4}>
                           <Typography.Text
                             strong
-                            className="text-gray-500 text-sm"
+                            className="text-gray-500 text-xs ml-2"
                           >
-
-
-
                             ৳
                             {Math.round(
                               cartItem?.price -
-                              (cartItem?.price * cartItem?.discount) / 100
+                                (cartItem?.price * cartItem?.discount) / 100
                             ) * cartItem.cartQuantity}
-
                             {/* ৳{cartItem?.price * cartItem.cartQuantity} */}
                           </Typography.Text>
                         </Col>
                         <Col span={4}>
-                        <Button
+                          <Button
                             type="link"
                             onClick={() => handleRemoveFromCart(cartItem)}
                           >
-                            {" "}
-                            Remove
+                            <IoClose color="red" />
                           </Button>
                         </Col>
                       </Row>

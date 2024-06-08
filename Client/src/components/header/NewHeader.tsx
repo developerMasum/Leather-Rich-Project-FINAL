@@ -78,7 +78,7 @@ const NewHeader = () => {
           className="flex items-center"
         >
           <Link to="/">
-          <img src={logo} alt="trendy" className="h-[50px] w-[100px] mt-2 object-fill mr-4 rounded" />
+          <img src={logo} alt="trendy" className=" h-[30px] md:lg:h-[50px] w-[80px] md:lg:w-[100px] mt-2 object-fill mr-4 rounded" />
           </Link>
         </motion.div>
         <div  className="max-w-md justify-center items-center hidden sm:inline-flex">

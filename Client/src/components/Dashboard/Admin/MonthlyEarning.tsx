@@ -115,7 +115,7 @@ const CustomTooltip = ({  payload }:{payload:TDataItem[]}) => {
     <>
       <div
         id="bar-chart-container"
-        className="rounded-2xl px-8 py-5 bg-[#03C9D7]"
+        className="rounded-2xl px-5 py-5 bg-[#03C9D7]"
       >
         <div className="flex justify-between items-center gap-6">
           <p className="font-semibold text-white text-lg">Earnings</p>

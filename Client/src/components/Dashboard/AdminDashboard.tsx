@@ -10,7 +10,7 @@ const AdminDashboard = () => {
 
 
   return (
-    <div className=" bg-[#fafbfb] min-h-screen ">
+    <div className=" bg-[#fafbfb]  ">
       <DisplayCards />
       <div className=" flex flex-wrap lg:flex-nowrap justify-between gap-5 mt-10">
         <InventoryStock />

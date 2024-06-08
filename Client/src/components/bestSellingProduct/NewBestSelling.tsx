@@ -25,8 +25,10 @@ const NewBestSellingProducts = () => {
     ...params,
   ]);
 
+  console.log(setParams);
   const openModal = (product:any) => {
     setSelectedProduct(product);
+    
     setIsModalOpen(true);
   };
 
