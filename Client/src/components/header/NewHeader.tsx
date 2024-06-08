@@ -142,7 +142,7 @@ const NewHeader = () => {
         </div>
 
         <button
-          className="md:hidden text-black hover:text-gray-300 focus:outline-none"
+          className="md:hidden text-black focus:outline-none px-4"
           onClick={() => setDrawerVisible(true)}
         >
           <svg
