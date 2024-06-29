@@ -14,7 +14,7 @@ const Footer = () => {
             ABOUT US
           </h5>
           <p className="text-balance text-sm mt-3 text-gray-200">
-            Richkid is premium leather shoes and fashion accessories kingdom. We
+            Trendy is premium leather shoes and fashion accessories kingdom. We
             provide the best quality shoes and accessories for ladies and gents.
           </p></div>
           <div> <SubscribeInput /></div>
@@ -68,7 +68,7 @@ const Footer = () => {
      
       <div className="bg-gray-700 text-white text-sm">
         <p className="text-center text-balance pt-2 pb-2">
-          Copyright © 2024 | LatherRich Lifestyle
+          Copyright © 2024 | Trendy Lifestyle
         </p>
       </div>
     </div>

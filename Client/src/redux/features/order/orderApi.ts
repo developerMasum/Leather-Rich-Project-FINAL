@@ -78,7 +78,7 @@ const orderApi = baseApi.injectEndpoints({
       query: (email) => {
         console.log("success", email);
         return {
-          url: ` /orders/get-my-orders/${email}`,
+          url: `/orders/get-my-orders/${email}`,
           method: "GET",
         };
       },
@@ -89,7 +89,7 @@ const orderApi = baseApi.injectEndpoints({
       query: (id: string) => {
         console.log("order", id);
         return {
-          url: ` /orders/cancel-order/${id}`,
+          url: `/orders/cancel-order/${id}`,
           method: "PATCH",
         };
       },

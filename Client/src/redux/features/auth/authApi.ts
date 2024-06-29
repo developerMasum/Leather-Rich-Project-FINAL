@@ -14,7 +14,27 @@ import { baseApi } from "../../api/baseApi";
         };
       },
     }),
+    forgetPassword: builder.mutation({
+      query: (userInfo) => {
+        console.log("auth/forget-password", userInfo);
+        return {
+          url: "/auth/forget-password",
+          method: "POST",
+          body: userInfo,
+        };
+      },
+    }),
+    resetPassword: builder.mutation({
+      query: (userInfo) => {
+        console.log("auth/forget-password", userInfo);
+        return {
+          url: "/auth/reset-password",
+          method: "POST",
+          body: userInfo,
+        };
+      },
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation,useForgetPasswordMutation,useResetPasswordMutation } = authApi;

@@ -25,6 +25,14 @@ const userApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getMe: builder.query({
+      query: () => {
+        return {
+          url: "/users/me",
+          method: "GET",
+        };
+      },
+    }),
 
     updateUser: builder.mutation({
       query: (options) => ({
@@ -41,6 +49,16 @@ const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
+    getUserDashboardData: builder.query({
+      query: (email) => {
+        console.log("success", email);
+        return {
+          url: `/users/user-dashboard-data/${email}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["user"],
+    }),
   }),
 });
 
@@ -49,4 +67,5 @@ export const {
  useGetAllUserQuery,
   useUpdateUserMutation,
   useDeleteUserMutation,
+  useGetMeQuery,useGetUserDashboardDataQuery
 } = userApi;

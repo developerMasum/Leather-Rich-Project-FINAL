@@ -4,7 +4,7 @@ import { TUser, useCurrentToken } from "../../redux/features/auth/authSlice";
 
 import { adminPaths } from "../../routes/admin.route";
 
-import { AppstoreOutlined } from "@ant-design/icons";
+
 import { verifyToken } from "../../utils/verifiToken";
 
 import { userPaths } from "../../routes/user.route";
@@ -65,8 +65,8 @@ const SideBar = () => {
           gap: "2px",
         }}
       >
-        <AppstoreOutlined />
-        <h3>GameGearTracker</h3>
+     
+       
       </div>
       <Menu
         theme="light"

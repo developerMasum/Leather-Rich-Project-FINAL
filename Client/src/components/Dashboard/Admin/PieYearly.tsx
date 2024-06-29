@@ -48,14 +48,7 @@ const PieYearlyEarnings = () => {
       }))
     : [];
 
-  // console.log(data);
 
-  // const data: DataItem[] = [
-  //   { name: 'Group A', value: 400 },
-  //   { name: 'Group B', value: 300 },
-  //   { name: 'Group C', value: 300 },
-  //   { name: 'Group D', value: 200 },
-  // ];
 
   const [chartDimensions, setChartDimensions] = useState<{
     width: number;
@@ -81,11 +74,12 @@ const PieYearlyEarnings = () => {
   return (
     <div
       id="pie-chart-container"
-      className="flex rounded-2xl px-8 py-5 bg-[#ffffff] mt-8"
+      className="flex rounded-2xl px-8 py-5  bg-[#47a5a570] mt-8"
     >
       <div className="flex justify-between items-center gap-6">
         <p className="text-xl font-sans text-gray-900 font-semibold mt-8">
-          <span>৳</span>{data[0]?.value}
+          <span>৳</span>
+          {data[0]?.value}
           <br />
           <span className="text-gray-500 text-sm"> Yearly Sales</span>
         </p>
@@ -101,7 +95,7 @@ const PieYearlyEarnings = () => {
           fill="#8884d8"
           dataKey="value"
         >
-          {data.map((entry:any, index:any) => (
+          {data.map((_entry: any, index: any) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>

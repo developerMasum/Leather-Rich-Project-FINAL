@@ -154,7 +154,7 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="container mx-auto max-w-3xl border border-neutral-400 pl-20">
+    <div className="container mx-auto max-w-3xl border-0 md:lg:border md:lg:border-neutral-400 pl-0 md:lg:pl-20">
       <CustomeDivider title="Add product" />
       <Form
         form={form}

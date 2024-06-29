@@ -1,90 +1,49 @@
-import {
-  FaShippingFast,
-  FaLock,
-  FaCertificate,
-  FaHeadset,
-} from "react-icons/fa";
-import { motion } from "framer-motion";
 
-const SubBanner = () => {
-  const parent = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1 },
+
+const collectionData = [
+ 
+  {
+    collectionName: 'Men Collection',
+    imageUrl: 'https://i.ibb.co/Fgpd1hr/men-83f8de7d-13d0-4b25-9c15-44f2b8a8f6c2-1200x-crop-center.jpg',
+  },
+  {
+    collectionName: 'Women Collection',
+    imageUrl: 'https://i.ibb.co/pxFt4zF/women-fc729eea-7c5e-411e-b8d3-e7bffad504bc-1200x-crop-center.jpg',
+  },
+  {
+    collectionName: 'Kids Collection',
+    imageUrl: 'https://i.ibb.co/ZgvvYfc/kids-90162511-b047-40e8-8f07-f4f22b3fe4b1-1200x-crop-center.jpg',
+  },
+  {
+    collectionName: 'Accessories Collection',
+    imageUrl: 'https://i.ibb.co/Y7KC44c/accessories-149d3d85-612c-4b01-8503-dc6870232413.jpg',
+    description: 'A collection of fashion accessories.',
+    category: 'Accessories',
+  },
+ 
+];
+
+const subBanner = () => {
+    return (
+      <div className=" mt-8  mb-4 px-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {collectionData?.map((collection, index) => (
+          <div key={index} className=" rounded shadow-md  group overflow-hidden">
+            <div className="relative group-hover:scale-105 cursor-pointer transform transition-transform">
+              <div className="relative">
+                <img
+                  src={collection.imageUrl}
+                  alt={collection.collectionName}
+                  className="w-full h-48 object-cover rounded hover:bg-slate-700 group-hover:bg-opacity-50 transition-background"
+                />
+                <div className="absolute top-0 left-0 w-full h-full bg-slate-700 opacity-0 group-hover:opacity-50 transition-opacity rounded"></div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   };
+  
+  
 
-  const child = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1 },
-  };
-
-  return (
-    <>
-      <motion.div
-        variants={parent}
-        initial="hidden"
-        animate="visible"
-        transition={{ ease: "easeInOut", duration: 1.5, delayChildren: 0.5 , staggerChildren:0.5}}
-        className=" max-w-[1200px] md:flex md:justify-center m-auto md:items-center -mt-4  shadow-transparent shadow-2xl  p-4"
-      >
-        <motion.div
-          variants={child}
-          className="flex items-center  rounded-md border border-l-[3px] border-l-primary p-4"
-        >
-          <FaShippingFast className="text-4xl text-blue-500 mr-4" />
-          <div>
-            <h4 className="text-lg font-semibold text-gray-800">
-              Free Shipping
-            </h4>
-            <p className="text-sm text-gray-600 text-balance">
-              We offer free shipping on all orders
-            </p>
-          </div>
-        </motion.div>
-        <motion.div
-          variants={child}
-          className="flex items-center  rounded-md border border-l-[3px] border-l-primary p-4"
-        >
-          <FaLock className="text-4xl text-green-500 mr-4" />
-          <div>
-            <h4 className="text-lg font-semibold text-gray-800">
-              Secure Payment
-            </h4>
-            <p className="text-sm text-gray-600 text-balance">
-              Make secure payments for your orders
-            </p>
-          </div>
-        </motion.div>
-        <motion.div
-          variants={child}
-          className="flex items-center  rounded-md border border-l-[3px] border-l-primary p-4"
-        >
-          <FaCertificate className="text-4xl text-yellow-500 mr-4" />
-          <div>
-            <h4 className="text-lg font-semibold text-gray-800">
-              Quality Products
-            </h4>
-            <p className="text-sm text-gray-600 text-balance">
-              We sell products from top-rated brands
-            </p>
-          </div>
-        </motion.div>
-        <motion.div
-          variants={child}
-          className="flex items-center  rounded-md border border-l-[3px] border-l-primary p-4"
-        >
-          <FaHeadset className="text-4xl text-purple-500 mr-4" />
-          <div>
-            <h4 className="text-lg font-semibold text-gray-800">
-              24/7 Support
-            </h4>
-            <p className="text-sm text-gray-600 text-balance">
-              Get access to 24/7 support from our expert team
-            </p>
-          </div>
-        </motion.div>
-      </motion.div>
-    </>
-  );
-};
-
-export default SubBanner;
+export default subBanner;

@@ -65,7 +65,7 @@ export default function InventoryStock() {
 
   return (
     <div
-      className="mx-5 w-full lg:w-1/2 bg-white rounded-2xl"
+      className=" w-full lg:w-1/2 bg-white rounded-2xl"
       style={{ width: "100%", maxWidth: "xl", height: "480px" }}
     >
       <p className="text-slate-600 font-semibold text-base ps-10 mb-8">INVENTORY STOCK</p>

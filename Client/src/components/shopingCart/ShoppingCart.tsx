@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { LeftOutlined, UserOutlined } from "@ant-design/icons";
-import { Badge, Button, Card, Col, Drawer, Row, Typography } from "antd";
+import { Badge, Button,Col, Drawer, Row, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
@@ -17,13 +17,24 @@ import NoDataFoundPage from "../../pages/noDataFoundPage/NoDataFoundPage";
 import { logout, useCurrentUser } from "../../redux/features/auth/authSlice";
 import { IoBagAddOutline } from "react-icons/io5";
 import { MdDashboard } from "react-icons/md";
+import { IoClose } from "react-icons/io5";
 
 const ShoppingCart = () => {
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
   const cart = useAppSelector((state) => state.cart);
+  console.log(cart)
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const user = useAppSelector(useCurrentUser);
   const dispatch = useAppDispatch();
+
+  // Function to get available quantity for a product size
+  const getAvailableQuantity = (item: any) => {
+    const sizeStock = item?.sizeStok?.find(
+      (sizeItem: any) => sizeItem.size === item.size
+    );
+    return sizeStock ? sizeStock.stock : 0;
+  };
 
   useEffect(() => {
     dispatch(getTotals());
@@ -36,20 +47,27 @@ const ShoppingCart = () => {
   };
 
   const handleDecreaseCart = (product: any) => {
-    console.log(product);
     dispatch(decreaseCart(product));
   };
+
   const handleIncreaseCart = (product: any) => {
-    console.log(product);
-    dispatch(addToCart(product));
+    const availableQuantity = getAvailableQuantity(product);
+    if (availableQuantity > 0 && product.cartQuantity < availableQuantity) {
+      dispatch(addToCart(product));
+    } else {
+      alert("Selected quantity exceeds available stock");
+    }
   };
+
   const handleRemoveFromCart = (product: any) => {
-    console.log(product);
     dispatch(removeFromCart(product));
   };
+
   const handleClearCart = () => {
     dispatch(clearCart());
   };
+
+
 
   return (
     <div>
@@ -58,7 +76,6 @@ const ShoppingCart = () => {
         <div>
           {user && (
             <Link to={`/${user?.role}/dashboard`}>
-             
               <MdDashboard className="text-xl text-primary" />
             </Link>
           )}
@@ -109,11 +126,9 @@ const ShoppingCart = () => {
           setCartDrawerOpen(false);
         }}
         title="Your Cart"
-        contentWrapperStyle={{ width: 600 }}
+        contentWrapperStyle={{ width: 600, margin: "0px 0px" }}
       >
-        <div
-          style={{ maxWidth: "1000px", margin: "auto", padding: "10px 0px" }}
-        >
+        <div style={{ maxWidth: "1000px", margin: "0ox", padding: "0px 0px" }}>
           {cart.cartItems.length === 0 ? (
             <NoDataFoundPage />
           ) : (
@@ -123,74 +138,79 @@ const ShoppingCart = () => {
                 align="middle"
                 className="text-gray-600"
               >
-                <Col span={6}>
-                  <Typography.Text strong className="text-gray-600 text-sm">
-                    PRODUCT
+                <Col span={4}>
+                  <Typography.Text
+                    strong
+                    className="text-gray-600 text- text-xs md:text-sm"
+                  >
+                    Product
                   </Typography.Text>
                 </Col>
                 <Col span={4}>
-                  <Typography.Text strong className="text-gray-600 text-sm">
-                    PRICE
+                  <Typography.Text
+                    strong
+                    className="text-gray-600 text- text-xs md:text-sm"
+                  >
+                    Price
                   </Typography.Text>
                 </Col>
                 <Col span={4}>
-                  <Typography.Text strong className="text-gray-600 text-sm">
-                    SIZE
-                  </Typography.Text>
-                </Col>
-                <Col span={6}>
-                  <Typography.Text strong className="text-gray-600 text-sm">
-                    QUANTITY
+                  <Typography.Text
+                    strong
+                    className="text-gray-600 text- text-xs md:text-sm"
+                  >
+                    Size
                   </Typography.Text>
                 </Col>
                 <Col span={4}>
-                  <Typography.Text strong className="text-gray-600 text-sm">
-                    TOTAL
+                  <Typography.Text
+                    strong
+                    className="text-gray-600 text- text-xs md:text-sm"
+                  >
+                    Quantity
+                  </Typography.Text>
+                </Col>
+                <Col span={4}>
+                  <Typography.Text
+                    strong
+                    className="text-gray-600 text- text-xs md:text-sm"
+                  >
+                    Total
+                  </Typography.Text>
+                </Col>
+                <Col span={4}>
+                  <Typography.Text
+                    strong
+                    className="text-gray-600 text- text-xs md:text-sm"
+                  >
+                    Action
                   </Typography.Text>
                 </Col>
               </Row>
 
-              <Row gutter={[4, 4]}>
-                <Col span={24} className="space-y-2">
+              <Row>
+                <Col span={24}>
                   {cart?.cartItems?.map((cartItem: any) => (
-                    <Card
+                    <div
                       key={cartItem.image}
                       style={{ height: "10" }}
-                      className="border"
+                      className="border p-2 rounded-sm"
                     >
-                      <Row justify="space-between" align="stretch">
-                        <Col span={6}>
-                          <div className="flex justify-center items-center gap-1">
-                            <img
-                              src={cartItem?.images[0]}
-                              alt={cartItem?.productName}
-                              width={30}
-                              height={30}
-                              loading="lazy"
-                            />
-
-                            <Typography.Text
-                              strong
-                              className="text-gray-500 text-sm overflow-hidden"
-                            >
-                              {cartItem?.name.length > 10
-                                ? cartItem?.name.substring(0, 10) + "..."
-                                : cartItem.name}
-                            </Typography.Text>
-                          </div>
-
-                          <Button
-                            type="link"
-                            onClick={() => handleRemoveFromCart(cartItem)}
+                      <Row justify="space-between" align="middle">
+                        <Col span={4}>
+                          <Typography.Text
+                            strong
+                            className="text-gray-500 text-xs overflow-hidden"
                           >
-                            {" "}
-                            Remove
-                          </Button>
+                            {cartItem?.name.length > 10
+                              ? cartItem?.name.substring(0, 10) + "..."
+                              : cartItem.name}
+                          </Typography.Text>
                         </Col>
                         <Col span={4}>
                           <Typography.Text
                             strong
-                            className="text-gray-500 text-sm"
+                            className="text-gray-500 text-xs"
                           >
                             ৳{cartItem?.price}
                           </Typography.Text>
@@ -198,15 +218,15 @@ const ShoppingCart = () => {
                         <Col span={4}>
                           <Typography.Text
                             strong
-                            className="text-gray-500 text-sm"
+                            className="text-gray-500 text-xs"
                           >
                             size {cartItem?.size}
                           </Typography.Text>
                         </Col>
-                        <Col span={6}>
-                          <div className="flex items-center justify-center gap-4">
+                        <Col span={4}>
+                          <div className="flex items-center justify-center gap-1 md:gap-2">
                             <button
-                              className="bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold px-3 py-1 rounded-md focus:outline-none"
+                              className="bg-gray-200 text-xs hover:bg-gray-300 text-gray-600 font-semibold px-2 py-1 rounded-md focus:outline-none"
                               onClick={() => handleDecreaseCart(cartItem)}
                             >
                               -
@@ -215,7 +235,7 @@ const ShoppingCart = () => {
                               {cartItem.cartQuantity}
                             </span>
                             <button
-                              className="bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold px-3 py-1 rounded-md focus:outline-none"
+                              className="bg-gray-200 hover:bg-gray-300 text-xs text-gray-600 font-semibold px-2 py-1 rounded-md focus:outline-none"
                               onClick={() => handleIncreaseCart(cartItem)}
                             >
                               +
@@ -225,13 +245,26 @@ const ShoppingCart = () => {
                         <Col span={4}>
                           <Typography.Text
                             strong
-                            className="text-gray-500 text-sm"
+                            className="text-gray-500 text-xs ml-2"
                           >
-                            ৳{cartItem?.price * cartItem.cartQuantity}
+                            ৳
+                            {Math.round(
+                              cartItem?.price -
+                                (cartItem?.price * cartItem?.discount) / 100
+                            ) * cartItem.cartQuantity}
+                            {/* ৳{cartItem?.price * cartItem.cartQuantity} */}
                           </Typography.Text>
                         </Col>
+                        <Col span={4}>
+                          <Button
+                            type="link"
+                            onClick={() => handleRemoveFromCart(cartItem)}
+                          >
+                            <IoClose color="red" />
+                          </Button>
+                        </Col>
                       </Row>
-                    </Card>
+                    </div>
                   ))}
                 </Col>
               </Row>

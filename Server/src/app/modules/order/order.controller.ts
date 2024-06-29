@@ -89,7 +89,20 @@ const getMyOrders = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'My orders fatched succesfully!!!',
+    message: 'My orders fetched successfully!!!',
+    data: result,
+  });
+});
+
+const cancelOrder = catchAsync(async (req, res) => {
+  const { id } = req.params;
+
+  const result = await orderServices.cancelOrder(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Order cancel successfully successfully',
     data: result,
   });
 });
@@ -102,5 +115,5 @@ export const orderController = {
   updateOrder,
   getSingleOrderByOrderNumber,
   successfulDelivery,
-  getMyOrders,
+  getMyOrders,cancelOrder
 };

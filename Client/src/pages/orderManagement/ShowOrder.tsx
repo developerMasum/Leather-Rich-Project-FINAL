@@ -10,15 +10,15 @@ import {
   useUpdateOrderDeliveryMutation,
 } from "../../redux/features/order/orderApi";
 import moment from "moment";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import CustomeDivider from "../../components/customeDivider/CustomeDivider";
-import { PDFDownloadLink, View } from "@react-pdf/renderer";
-import RRPdf from "../../utils/generatePdf";
-import { DownloadOutlined } from "@ant-design/icons";
-import PdfDocument from "../../components/pdfElements/MainPdfComponent";
-import InvoiceTableRow from "../../components/pdfElements/InvoiceTableRow";
-import InvoiceItemsTable from "../../components/pdfElements/InvoiceItemsTable";
+// import { PDFDownloadLink, View } from "@react-pdf/renderer";
+// import RRPdf from "../../utils/generatePdf";
+// import { DownloadOutlined } from "@ant-design/icons";
+// import PdfDocument from "../../components/pdfElements/MainPdfComponent";
+// import InvoiceTableRow from "../../components/pdfElements/InvoiceTableRow";
+// import InvoiceItemsTable from "../../components/pdfElements/InvoiceItemsTable";
 
 const items = [
   {
@@ -124,48 +124,8 @@ const ShowOrder = () => {
         </Dropdown>
       ),
     },
-    // {
-    //   title: "Action",
-    //   key: "details",
-    //   render: (_: any, record: any) => (
-    //     <Link to={`/superAdmin/order-details/${record.key}`}>
-    //       <Button>Details</Button>
-    //     </Link>
-    //   ),
-    // },
-    {
-      title: "Download Invoice",
-      key: "invoice",
-      render: (_: any, record: any) => (
-        // <Link to={`/superAdmin/order-details/${record.key}`}>
-        //   <Button  type="dashed" danger>Download</Button>
-        // </Link>
-
-//<PDFDownloadLink
-// document={<PdfDocument data={record} />}
-// fileName={`invoice_${record.buyerName}_${record?.orderNumber}.pdf`}
-
-// >
-// {({ loading }) => (loading ? 'Loading...' :  <Button type="default" icon={<DownloadOutlined />} size={"middle"}>Download PDF</Button>)}
-// </PDFDownloadLink> 
-
-<PDFDownloadLink
-      document={<PdfDocument data={record} />}
-      fileName={`invoice_${record.buyerName}_${record?.orderNumber}.pdf`}
-    >
-      {({ loading }) => (
-        <View>
-          {/* <InvoiceTableRow invoice={record} /> */}
-          {/* <InvoiceItemsTable invoice={record} /> */}
-          
-          <Button type="default" icon={<DownloadOutlined />} size="middle">
-            {loading ? 'Loading...' : 'Download PDF'}
-          </Button>
-        </View>
-      )}
-    </PDFDownloadLink>
-      ),
-    },
+  
+   
   ];
 
   const tableData = orders?.data?.map(

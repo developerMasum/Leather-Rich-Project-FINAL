@@ -7,12 +7,10 @@ const HomeLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-
       <div className="min-h-screen mt-[80px]">
         <Outlet />
       </div>
       <GoToTop />
-
       <Footer />
     </div>
   );
