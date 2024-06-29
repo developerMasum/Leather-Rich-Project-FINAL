@@ -26,9 +26,9 @@ const NewBestSellingProducts = () => {
   ]);
 
   console.log(setParams);
-  const openModal = (product:any) => {
+  const openModal = (product: any) => {
     setSelectedProduct(product);
-    
+
     setIsModalOpen(true);
   };
 
@@ -160,7 +160,7 @@ const NewBestSellingProducts = () => {
                     {hoveredCard === index && (
                       <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 bg-black">
                         <button
-                          className="text-white bg-black text-xs hover:bg-gray-700 hover:text-white font-bold py-2 px-4 rounded-md transition duration-500 transform hover:scale-110"
+                          className="text-white bg-black text-xs hover:bg-gray-500  hover:text-white font-bold py-2 px-4 rounded-md transition duration-500 transform hover:scale-110"
                           onClick={() => handleClickToView(product)}
                         >
                           Click to view
@@ -196,9 +196,14 @@ const NewBestSellingProducts = () => {
             <div>
               <img src={selectedProduct?.images[0]} alt="" />
             </div>
-            <p className="text-red-700">{selectedProduct.name}</p>
+            <p className="text-red-700 font-semibold">{selectedProduct.name}</p>
             <p>{selectedProduct.description}</p>
-            <p>Price: {selectedProduct.price}৳</p>
+            <p className="font-semibold">
+              Price:
+              <span className="text-red-700 font-bold">
+                {selectedProduct.price}৳
+              </span>
+            </p>
           </>
         )}
       </Modal>
