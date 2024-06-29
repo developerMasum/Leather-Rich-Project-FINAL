@@ -1606,7 +1606,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:5000",
+          "raw": "https://trendy-leather-server.vercel.app/",
           "protocol": "http",
           "host": ["localhost"],
           "port": "5000"
