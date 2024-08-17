@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 import logo from "../../assets/images/PNG-Richkid-Logo.png";
 import { GiCheckMark } from "react-icons/gi";
 import { Divider } from "antd";
+import Credential from "../../components/LogInCredentials/Credentials";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -55,7 +56,6 @@ const Login = () => {
     visible: { opacity: 1, scale: 1 },
   };
 
-  
   return (
     <main className="mt-12 md:lg:mt-20">
       <div className=" px-4 sm:px-2 w-full flex flex-col sm:flex-row justify-around gap-5 items-center">
@@ -177,6 +177,7 @@ const Login = () => {
               </Form.Item>
             </Form>
           </motion.div>
+          <Credential />
         </div>
       </div>
     </main>
